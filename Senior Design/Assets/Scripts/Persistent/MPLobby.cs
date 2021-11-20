@@ -6,6 +6,7 @@ using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System;
 
 public class MPLobby : NetworkBehaviour
@@ -13,42 +14,98 @@ public class MPLobby : NetworkBehaviour
     // Dictionary<int, PlayerData> players;
     public NetworkList<PlayerData> players;
     public Text playerListObject;
+    public GameObject startGameButton;
 
     private void Start()
     {
-        if(IsServer)
-        { 
+        if (IsServer)
+        {
             players = new NetworkList<PlayerData>();
+            players.OnListChanged += UpdatePlayersList;
         }
-        players.OnListChanged += UpdatePlayersList;
+
+        if (IsHost)
+        {
+            players.Add(new PlayerData(PlayerPrefs.GetString("Name"), NetworkManager.Singleton.LocalClientId));
+        }
+        else
+        {
+            SetPlayerNameServerRpc(NetworkManager.Singleton.LocalClientId, PlayerPrefs.GetString("Name"));
+            startGameButton.SetActive(false);
+        }
         NetworkManager.OnClientConnectedCallback += HandleClientConnection;
-        players.Add(new PlayerData("Sam"));
+        NetworkManager.OnClientDisconnectCallback += HandleClientDisconnect;
     }
 
     private void HandleClientConnection(ulong clientId)
     {
+        print("Player Connected");
+    }
+
+    private void HandleClientDisconnect(ulong clientId)
+    {
+        if (IsServer)
+        {
+            foreach (PlayerData p in players)
+            {
+                if (p.ClientId == clientId)
+                {
+                    players.Remove(p);
+                    break;
+                }
+            }
+        }
         if (clientId == NetworkManager.Singleton.LocalClientId)
         {
-            PlayerPrefs.SetString("Name", "Sam");
-            SetPlayerNameServerRpc(clientId, PlayerPrefs.GetString("Name"));
+            print("Disconnected from Server");
+            Destroy(NetworkManager.Singleton.gameObject);
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            print("Player Disconnected");
         }
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void SetPlayerNameServerRpc(ulong clientId, string name)
     {
-        PlayerPrefs.SetString("Name", "Sam");
         print("Setting Player Name");
-        players[0] = new PlayerData(name);
+        players.Add(new PlayerData(name, clientId));
     }
 
     public void UpdatePlayersList(NetworkListEvent<PlayerData> changeEvent)
     {
-        playerListObject.text = "";
+        var newText = "";
         print("Setting Text");
         foreach(PlayerData p in players)
         {
-            playerListObject.text += p.Name + "\n";
+            newText += p.Name + "\n";
         }
+        UpdatePlayersListClientRpc(newText);
     }
+
+    [ClientRpc]
+    public void UpdatePlayersListClientRpc(string list)
+    {
+        playerListObject.text = list;
+    }
+
+    public void LeaveLobby()
+    {
+        if (IsHost)
+        {
+            NetworkManager.Singleton.StopHost();
+            NetworkManager.Singleton.Shutdown();
+            Destroy(NetworkManager.Singleton.gameObject);
+        }
+        else
+        {
+            NetworkManager.Singleton.StopClient();
+            NetworkManager.Singleton.Shutdown();
+            Destroy(NetworkManager.Singleton.gameObject);
+        }
+        SceneManager.LoadScene("MainMenu");
+    }
+    
 }

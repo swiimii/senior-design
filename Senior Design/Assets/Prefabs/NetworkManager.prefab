@@ -51,8 +51,8 @@ MonoBehaviour:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 7916765637312544880}
     RegisteredScenes:
-    - Lobby
     - MainMenu
+    - Lobby
     AllowRuntimeSceneChanges: 0
     NetworkPrefabs: []
     PlayerPrefabHash:
