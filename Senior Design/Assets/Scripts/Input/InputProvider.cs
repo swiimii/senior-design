@@ -14,25 +14,23 @@ public interface IInputProvider {
 }
 
 [CreateAssetMenu(fileName = "InputReader", menuName = "InputData/Input Reader")]
-public class InputProvider : ScriptableObject, IInputProvider, GameInput.IGameplayActions {
+public class InputProvider : ScriptableObject, IInputProvider, PlayerInput.IGameplayActions {
     // Gameplay
 
     public Vector2 movementDirection;
     public event UnityAction<float> onInteract;
     public event UnityAction<Vector2> MousePosEvent;
 
-    private GameInput GameInput { get; set; }
+    private PlayerInput GameInput { get; set; }
 
     private void OnEnable()
     {
-        GameInput ??= new GameInput();
+        GameInput ??= new PlayerInput();
         GameInput.Gameplay.SetCallbacks(this);
         EnableInput();
     }
 
     private void OnDisable() => DisableInput();
-
-    #region Gameplay Actions
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -50,8 +48,6 @@ public class InputProvider : ScriptableObject, IInputProvider, GameInput.IGamepl
     {
         MousePosEvent?.Invoke(context.ReadValue<Vector2>());
     }
-    
-    #endregion
     
     public static implicit operator InputState(InputProvider provider) => provider.GetState();
     

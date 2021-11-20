@@ -1,5 +1,5 @@
 {
-    "name": "GameInput",
+    "name": "PlayerInput",
     "maps": [
         {
             "name": "Gameplay",
@@ -19,7 +19,7 @@
                     "id": "dabc56f1-2ebe-4f74-9475-81bc8e5c32bf",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press(behavior=2)"
                 },
                 {
                     "name": "Mouse",
