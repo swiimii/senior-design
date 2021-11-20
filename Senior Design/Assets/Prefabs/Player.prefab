@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 156064493794027600}
   - component: {fileID: 156064493794027566}
   - component: {fileID: 156064493794027601}
+  - component: {fileID: 1286036668}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -145,6 +146,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c4a6c8fef586bf4cb2a529e72077520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  provider: {fileID: 11400000, guid: 06d471742828fa84ab6d62b1751c6d4e, type: 2}
+  collisionDetection: {fileID: 156064493794027601}
+  walkSpeed: 7
+  runStopwatch:
+    duration: 0
+    cooldown: 0
 --- !u!114 &156064493794027601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,3 +168,20 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &1286036668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156064493794027604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a864b8e4f6a4034f9fa2ad4aa900006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root: {fileID: 11400000, guid: 3ea3341171567a2479762c731f372629, type: 2}
+  renderer: {fileID: 156064493794027605}
+  fps: 7
+  temporaryDrivers:
+  - idleTransition

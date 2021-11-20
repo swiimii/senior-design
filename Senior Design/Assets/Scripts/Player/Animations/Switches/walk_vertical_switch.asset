@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b935bc3bfd4944ab93c4a574dfd0da, type: 3}
+  m_Name: walk_vertical_switch
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 11400000, guid: a9f13fec61a3931479c8163706bd7e45, type: 2}
+  - {fileID: 11400000, guid: 9aecee39ef6df8b4f84e34146b19d8b2, type: 2}
+  controlDriver:
+    name: isMovingUp
+    autoIncrement: 0
+    percentageBased: 0
+    guid: 872ebb95-d145-45b2-82e9-cc077cc0a51a
+  drivers:
+    keys: []
+    values: 

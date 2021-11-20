@@ -7,28 +7,26 @@ public struct InputState {
 }
 
 public interface IInputProvider {
+    public event UnityAction<float> onInteract; 
     public InputState GetState();
     void EnableInput();
     void DisableInput();
 }
 
 [CreateAssetMenu(fileName = "InputReader", menuName = "InputData/Input Reader")]
-public class InputReader : ScriptableObject, IInputProvider, GameInput.IGameplayActions {
+public class InputProvider : ScriptableObject, IInputProvider, GameInput.IGameplayActions {
     // Gameplay
-    public event UnityAction<Vector2> MoveEvent;
-    public event UnityAction<Vector2> MousePosEvent;
-    public event UnityAction InteractionStartedEvent;
-    public event UnityAction InteractionCancelledEvent;
 
+    public Vector2 movementDirection;
+    public event UnityAction<float> onInteract;
+    public event UnityAction<Vector2> MousePosEvent;
 
     private GameInput GameInput { get; set; }
 
     private void OnEnable()
     {
-        if (GameInput == null) {
-            GameInput = new GameInput();
-            GameInput.Gameplay.SetCallbacks(this);
-        }
+        GameInput ??= new GameInput();
+        GameInput.Gameplay.SetCallbacks(this);
         EnableInput();
     }
 
@@ -38,28 +36,30 @@ public class InputReader : ScriptableObject, IInputProvider, GameInput.IGameplay
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        MoveEvent?.Invoke(context.ReadValue<Vector2>().normalized);
+        movementDirection = context.ReadValue<Vector2>();
     }
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (InteractionStartedEvent != null && context.phase == InputActionPhase.Started)
-            InteractionStartedEvent.Invoke();
-
-        if (InteractionCancelledEvent != null && context.phase == InputActionPhase.Canceled)
-            InteractionCancelledEvent.Invoke();
+        if (context.phase == InputActionPhase.Performed) {
+            onInteract?.Invoke(context.ReadValue<float>());
+        }
     }
 
     public void OnMouse(InputAction.CallbackContext context)
     {
         MousePosEvent?.Invoke(context.ReadValue<Vector2>());
     }
-
+    
     #endregion
-
+    
+    public static implicit operator InputState(InputProvider provider) => provider.GetState();
+    
     public InputState GetState()
     {
-        throw new System.NotImplementedException();
+        return new InputState {
+            movementDirection = movementDirection,
+        };
     }
 
     public void EnableInput()
