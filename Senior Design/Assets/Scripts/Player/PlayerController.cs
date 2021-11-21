@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour {
         UpdateMovementState();
     }
     
+    
     private void UpdateMovementState() {
         var previousVelocity = collisionDetection.rigidbody2D.velocity;
         var velocityChange = Vector2.zero;
