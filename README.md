@@ -9,7 +9,7 @@ For our Senior Design project, our team is making a online-multiplayer co-op gam
 While completing their objectives, players need to avoid on-ship hazards! With how much time the players have been in cryosleep, there’s rooms with no oxygen, electrical issues, and more that must be repaired before the crew can return home, and players who do so carelessly may end up respawning and losing their items!
 Some puzzles also require team effort! Players may have bypass security using twin keys, help allies operate space tech, and more! 
 
-## [Project Description(BROKEN)](https://github.com/swiimii/senior-design/tree/main)
+## [Project Description]()
 
 ## [User Stories and Diagrams](https://github.com/swiimii/senior-design/tree/main/Design%20Diagrams)
 
@@ -19,6 +19,8 @@ Some puzzles also require team effort! Players may have bypass security using tw
 
 ## [Professional Biographies]()
 
-Budget: To date, our project has not had any expenses, however we've been discussing the use of senior design funds to afford a Steam Developer license, or art asset licences.
+## Budget 
+To date, our project has not had any expenses, however we've been discussing the use of senior design funds to afford a Steam Developer license, or art asset licences.
 
-Appendix: ?
+## Appendix
+
