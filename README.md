@@ -10,8 +10,15 @@ For our Senior Design project, our team is making a online-multiplayer co-op gam
 While completing their objectives, players need to avoid on-ship hazards! With how much time the players have been in cryosleep, there’s rooms with no oxygen, electrical issues, and more that must be repaired before the crew can return home, and players who do so carelessly may end up respawning and losing their items!
 Some puzzles also require team effort! Players may have bypass security using twin keys, help allies operate space tech, and more! 
 
-## Extended Description
-Our game, tentatively titled *Space Crisis Escape*, will allow up to 4 players to work together to repair their ship. 
+## Additional/Technical Project Description
+### Features
+Our game, tentatively titled *Space Crisis Escape*, will allow up to 4 networked players to work together to repair their ship. Players will be able to explore their 2D environment, using items found around their ship to solve puzzles. 
+
+### Technology Stack
+The game is made using Unity/C#, and is currently in early development (as of Dec. 1, 2021). Any additional software will be acquired from the Unity Asset Store, imported to the project repository as a Git Submodule, or referenced in our appendix.
+
+### Networking Details
+Our game will use a Client/Server network architecture, where the "Host" of the game will act as a server and client simultaneously, and other players will all act as clients.
 
 ## [User Stories and Diagrams](https://github.com/swiimii/senior-design/tree/main/Design%20Diagrams)
 
