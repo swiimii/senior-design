@@ -1,4 +1,4 @@
-# "Team Clean Laundry" Senior Design Project, University of Cincinnati, Computer Science Class of 2022
+# **Team Clean Laundry** Senior Design Project, University of Cincinnati, Computer Science Class of 2022
 ## Contributors:
  - Raja Vaze
  - Samuel Scherer
