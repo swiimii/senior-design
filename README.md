@@ -32,4 +32,7 @@ Our game will use a Client/Server network architecture, where the "Host" of the 
 To date, our project has not had any expenses, however we've been discussing the use of senior design funds to afford a Steam Developer license, or art asset licences.
 
 ## Appendix
+ - [Google Drive folder](https://drive.google.com/drive/folders/1eCeh6q14ys2AvG4vdRlvScV9JNBE-aQN?usp=sharing) with various project documents (view-only)
+ - [Folder containing project deliverables](https://github.com/swiimii/senior-design/tree/main/Senior%20Design/Assets) (i.e. C# Code, Unity Assets, etc.)
+
 
