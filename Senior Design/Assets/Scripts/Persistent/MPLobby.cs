@@ -5,6 +5,7 @@ using UnityEngine;
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable.Collections;
+using MLAPI.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
@@ -15,6 +16,8 @@ public class MPLobby : NetworkBehaviour
     public NetworkList<PlayerData> players;
     public Text playerListObject;
     public GameObject startGameButton;
+    public GameObject playerPrefab;
+
 
     private void Start()
     {
@@ -83,6 +86,26 @@ public class MPLobby : NetworkBehaviour
             newText += p.Name + "\n";
         }
         UpdatePlayersListClientRpc(newText);
+    }
+
+    public void StartGame()
+    {
+        if(IsHost)
+        {
+            StartServerRpc();
+        }
+    }
+
+    [ServerRpc]
+    public void StartServerRpc()
+    {
+        foreach (PlayerData p in players)
+        {
+            var obj = Instantiate(playerPrefab);
+            obj.GetComponent<NetworkObject>().SpawnAsPlayerObject(p.ClientId);
+            print("Spawning object for " + p.Name + " of id " + p.ClientId);
+        }
+        NetworkSceneManager.SwitchScene("main");
     }
 
     [ClientRpc]

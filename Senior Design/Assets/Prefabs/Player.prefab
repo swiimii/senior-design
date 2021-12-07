@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 156064493794027566}
   - component: {fileID: 156064493794027601}
   - component: {fileID: 1286036668}
+  - component: {fileID: 8644935769116328620}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -128,7 +129,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 0
@@ -147,11 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   provider: {fileID: 11400000, guid: 06d471742828fa84ab6d62b1751c6d4e, type: 2}
-  collisionDetection: {fileID: 156064493794027601}
   walkSpeed: 7
-  runStopwatch:
-    duration: 0
-    cooldown: 0
 --- !u!114 &156064493794027601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,3 +182,20 @@ MonoBehaviour:
   fps: 7
   temporaryDrivers:
   - idleTransition
+--- !u!114 &8644935769116328620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156064493794027604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworkInstanceId: 0
+  PrefabHash: 1897319656204293034
+  PrefabHashGenerator: Player
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
