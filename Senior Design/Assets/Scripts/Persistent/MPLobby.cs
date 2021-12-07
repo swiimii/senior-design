@@ -4,6 +4,7 @@ using System.Reflection;
 using UnityEngine;
 using MLAPI;
 using MLAPI.Messaging;
+using MLAPI.NetworkVariable;
 using MLAPI.NetworkVariable.Collections;
 using MLAPI.SceneManagement;
 using UnityEngine.UI;
@@ -14,17 +15,20 @@ public class MPLobby : NetworkBehaviour
 {
     // Dictionary<int, PlayerData> players;
     public NetworkList<PlayerData> players;
-    public Text playerListObject;
-    public GameObject startGameButton;
     public GameObject playerPrefab;
 
-
-    private void Start()
+    public override void NetworkStart()
     {
         if (IsServer)
         {
-            players = new NetworkList<PlayerData>();
-            players.OnListChanged += UpdatePlayersList;
+            var objs = FindObjectsOfType<MPLobby>();
+            if ( objs.Length > 1)
+            {
+                Debug.LogError("Tried to create MPLobby object when one already existed.");
+                Destroy(gameObject);
+                return;
+            }
+            players = new NetworkList<PlayerData>(new NetworkVariableSettings {ReadPermission = NetworkVariablePermission.Everyone });
         }
 
         if (IsHost)
@@ -34,7 +38,6 @@ public class MPLobby : NetworkBehaviour
         else
         {
             SetPlayerNameServerRpc(NetworkManager.Singleton.LocalClientId, PlayerPrefs.GetString("Name"));
-            startGameButton.SetActive(false);
         }
         NetworkManager.OnClientConnectedCallback += HandleClientConnection;
         NetworkManager.OnClientDisconnectCallback += HandleClientDisconnect;
@@ -63,6 +66,7 @@ public class MPLobby : NetworkBehaviour
             print("Disconnected from Server");
             Destroy(NetworkManager.Singleton.gameObject);
             SceneManager.LoadScene("MainMenu");
+            Destroy(gameObject);
         }
         else
         {
@@ -75,17 +79,6 @@ public class MPLobby : NetworkBehaviour
     {
         print("Setting Player Name");
         players.Add(new PlayerData(name, clientId));
-    }
-
-    public void UpdatePlayersList(NetworkListEvent<PlayerData> changeEvent)
-    {
-        var newText = "";
-        print("Setting Text");
-        foreach(PlayerData p in players)
-        {
-            newText += p.Name + "\n";
-        }
-        UpdatePlayersListClientRpc(newText);
     }
 
     public void StartGame()
@@ -108,12 +101,6 @@ public class MPLobby : NetworkBehaviour
         NetworkSceneManager.SwitchScene("main");
     }
 
-    [ClientRpc]
-    public void UpdatePlayersListClientRpc(string list)
-    {
-        playerListObject.text = list;
-    }
-
     public void LeaveLobby()
     {
         if (IsHost)
@@ -121,12 +108,14 @@ public class MPLobby : NetworkBehaviour
             NetworkManager.Singleton.StopHost();
             NetworkManager.Singleton.Shutdown();
             Destroy(NetworkManager.Singleton.gameObject);
+            Destroy(gameObject);
         }
         else
         {
             NetworkManager.Singleton.StopClient();
             NetworkManager.Singleton.Shutdown();
             Destroy(NetworkManager.Singleton.gameObject);
+            Destroy(gameObject);
         }
         SceneManager.LoadScene("MainMenu");
     }
