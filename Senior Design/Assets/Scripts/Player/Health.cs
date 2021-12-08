@@ -26,7 +26,6 @@ public class Health : NetworkBehaviour, IDamageable
         {
             health.Value = MAXHEALTH;
         }
-        
     }
 
     [ServerRpc(RequireOwnership=false)]
@@ -81,7 +80,8 @@ public class Health : NetworkBehaviour, IDamageable
     [ClientRpc]
     public void ResolveHealthDepletionClientRpc()
     {
-        transform.position = new Vector3(0, 0, transform.position.z);
+        var spawnPoint = GameObject.FindGameObjectWithTag("Respawn").transform;
+        transform.position = new Vector3(spawnPoint.position.x, spawnPoint.position.y, transform.position.z);
         GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     }
     
