@@ -20,12 +20,8 @@ public class MP_ChatUIScript : NetworkBehaviour
 
     void Start()
     {
-        messages.OnValueChanged += updateUIClientRpc;
-        if (!IsOwner)
-        {
-            panel.SetActive(false);
-            return;
-        }
+        if (IsServer)
+            messages.OnValueChanged += updateUIClientRpc;
     }
 
     [ClientRpc]
@@ -47,7 +43,7 @@ public class MP_ChatUIScript : NetworkBehaviour
         chatInput.text = "";
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership=false)]
     private void sendMessageServerRpc(string text, string name, ServerRpcParams svrParam = default)
     {
         messages.Value += "\n" + name  + ": " + text;
