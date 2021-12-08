@@ -7,24 +7,26 @@ using MLAPI.Messaging;
 
 public class Health : NetworkBehaviour, IDamageable
 {
-    public const int MAXHEALTH = 5;
+    public const int MAXHEALTH = 3;
 
     public GameObject healthBarObject;
     public float maxBarLength;
     public string mostRecentAttacker;
+    public NetworkVariable<bool> recentlyDamaged;
 
     [SerializeField]
-    NetworkVariable<int> health = new NetworkVariable<int>();
+    NetworkVariable<int> health = new NetworkVariable<int>(new NetworkVariableSettings{
+        ReadPermission=NetworkVariablePermission.Everyone, WritePermission=NetworkVariablePermission.OwnerOnly});
 
     private void Start()
     {
         maxBarLength = healthBarObject.transform.localScale.x;
+        health.OnValueChanged += ResolveHealthChange;
         if (IsServer)
         {
             health.Value = MAXHEALTH;
         }
-        health.OnValueChanged += ResolveHealthChange;
-        health.OnValueChanged += CheckIfDead;
+        
     }
 
     [ServerRpc(RequireOwnership=false)]
@@ -36,31 +38,79 @@ public class Health : NetworkBehaviour, IDamageable
     [ServerRpc(RequireOwnership=false)]
     public void DamageServerRpc(int value, string source)
     {
-        mostRecentAttacker = source;
-        health.Value -= value;
+        if (!recentlyDamaged.Value)
+        {
+            mostRecentAttacker = source;
+            health.Value -= value;
+        }
+        if (health.Value > 0)
+        {
+            recentlyDamaged.Value = true;
+            StartCoroutine(Knockback(Vector3.zero));
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DamageServerRpc(int value, string source, Vector3 knockbackDirection)
+    {
+        StartCoroutine(Knockback(knockbackDirection));
+
+        if (!recentlyDamaged.Value)
+        {
+            recentlyDamaged.Value = true;
+            mostRecentAttacker = source;
+            health.Value -= value;
+        }
+
+
     }
 
     public void ResolveHealthChange(int oldstate, int newstate)
     {
         var ht = healthBarObject.transform;
-        ht.localScale = new Vector3(Mathf.Min(Mathf.Max((float)health.Value / MAXHEALTH * maxBarLength, 0), MAXHEALTH), ht.localScale.y, ht.localScale.z);
-    }
+        ht.localScale = new Vector3(Mathf.Min(Mathf.Max((float)newstate / MAXHEALTH * maxBarLength, 0), MAXHEALTH), ht.localScale.y, ht.localScale.z);
 
-    public void CheckIfDead(int oldstate, int newstate)
-    {
-        if (newstate <= 0)
+        if (IsServer && newstate <= 0)
         {
-            ResolveHealthDepletion();
-        }
-    }
-    public void ResolveHealthDepletion()
-    {
-
-        transform.position = new Vector3(0, 0, 0);
-        if (IsServer)
-        {
+            ResolveHealthDepletionClientRpc();
             health.Value = MAXHEALTH;
         }
-       
+    }
+
+
+    [ClientRpc]
+    public void ResolveHealthDepletionClientRpc()
+    {
+        transform.position = new Vector3(0, 0, transform.position.z);
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+    }
+    
+    // server only
+    public IEnumerator Knockback(Vector3 direction, float knockbackMagnitude = 7)
+    {
+        TogglePlayerControlClientRpc(false);
+        var kbVector = direction.normalized * knockbackMagnitude;
+        KnockbackClientRpc(kbVector);
+
+        // stun for 1 second, then return control to player
+        yield return new WaitForSeconds(1);
+        recentlyDamaged.Value = false;
+        TogglePlayerControlClientRpc(true);
+    }
+
+    [ClientRpc]
+    public void KnockbackClientRpc(Vector3 kbVector)
+    {
+        GetComponent<Rigidbody2D>().velocity = kbVector;
+    }
+
+    [ClientRpc]
+    public void TogglePlayerControlClientRpc(bool playerCanControl)
+    {
+        if(IsLocalPlayer)
+        {
+            GetComponent<PlayerController>().enabled = playerCanControl;
+        }
+        GetComponent<SpriteRenderer>().color = playerCanControl ? Color.white : Color.red;
     }
 }

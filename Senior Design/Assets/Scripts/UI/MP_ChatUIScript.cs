@@ -16,8 +16,7 @@ public class MP_ChatUIScript : NetworkBehaviour
 
     static NetworkVariableString messages = new NetworkVariableString("Temp");
 
-    public NetworkList<PlayerData> chatPlayers;
-    private string playerName = "N/A";
+    private string localPlayerName => PlayerPrefs.GetString("Name");
 
     void Start()
     {
@@ -26,14 +25,6 @@ public class MP_ChatUIScript : NetworkBehaviour
         {
             panel.SetActive(false);
             return;
-        }
-        foreach(PlayerData player in chatPlayers)
-        {
-            if(NetworkManager.LocalClientId == player.ClientId)
-            {
-                playerName = player.Name;
-                break;
-            }
         }
     }
 
@@ -47,27 +38,18 @@ public class MP_ChatUIScript : NetworkBehaviour
     {
         if (!IsServer)
         {
-            sendMessageServerRpc(chatInput.text);
+            sendMessageServerRpc(chatInput.text, localPlayerName);
         }
         else
         {
-            messages.Value += "\n" + playerName + ": " + chatInput.text;
+            messages.Value += "\n" + localPlayerName + ": " + chatInput.text;
         }
         chatInput.text = "";
     }
 
     [ServerRpc]
-    private void sendMessageServerRpc(string text, ServerRpcParams svrParam = default)
+    private void sendMessageServerRpc(string text, string name, ServerRpcParams svrParam = default)
     {
-        var incomingPlayerName = "N/A";
-        foreach (PlayerData player in chatPlayers)
-        {
-            if (svrParam.Receive.SenderClientId == player.ClientId)
-            {
-                incomingPlayerName = player.Name;
-                break;
-            }
-        }
-        messages.Value += "\n" + incomingPlayerName  + ": " + text;
+        messages.Value += "\n" + name  + ": " + text;
     }
 }

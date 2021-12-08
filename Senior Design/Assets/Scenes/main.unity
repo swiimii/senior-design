@@ -218,8 +218,9 @@ GameObject:
   - component: {fileID: 590170486}
   - component: {fileID: 590170488}
   - component: {fileID: 590170489}
+  - component: {fileID: 590170490}
   m_Layer: 0
-  m_Name: EnvironmentalDamage
+  m_Name: FireHazard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -333,6 +334,20 @@ MonoBehaviour:
   PrefabHashGenerator: EnvironmentalDamage
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
+--- !u!114 &590170490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590170485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa5c1469979690e4c9074ee0d57cf6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Fire
+  damage: 1
 --- !u!1 &645636921
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +456,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

@@ -2,24 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MLAPI;
+using MLAPI.Messaging;
 
-public class Hazard : MonoBehaviour
+public class Hazard : NetworkBehaviour
 {
     public string description = "Unnamed Hazard";
     public int damage = 1;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        NetworkObject netObj = collision.gameObject.GetComponent<NetworkObject>();
-        if (netObj.IsLocalPlayer)
+        print("Collision");
+        if (collision.gameObject.GetComponent<NetworkObject>() && collision.gameObject.GetComponent<NetworkObject>().IsLocalPlayer)
         {
-            if (collision.gameObject.GetComponent<NetworkBehaviour>() && collision.gameObject.GetComponent<NetworkBehaviour>().IsOwner)
+            print("Check passed");
+            if (collision.gameObject.GetComponent<Health>())
             {
-                if (collision.gameObject.GetComponent<Health>())
-                {
-                    collision.gameObject.GetComponent<Health>().DamageServerRpc(damage, description);
-                }
+                var knockbackDirection = collision.gameObject.transform.position - transform.position;
+                collision.gameObject.GetComponent<Health>().DamageServerRpc(damage, description, knockbackDirection);
             }
         }
     }
+
 }

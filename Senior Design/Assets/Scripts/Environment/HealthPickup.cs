@@ -2,19 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MLAPI;
+using MLAPI.Messaging;
 
-public class HealthPickup : MonoBehaviour
+public class HealthPickup : NetworkBehaviour
 {
     public int healValue = 1;
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<NetworkBehaviour>() && collision.gameObject.GetComponent<NetworkBehaviour>().IsOwner)
+        print("Collision");
+        if (collision.gameObject.GetComponent<Health>() && collision.gameObject.GetComponent<NetworkObject>().IsLocalPlayer)
         {
-            if (collision.gameObject.GetComponent<Health>())
-            {
-                collision.gameObject.GetComponent<Health>().HealServerRpc(healValue);
-                Destroy(gameObject);
-            }
+            collision.gameObject.GetComponent<Health>().HealServerRpc(healValue);
+            ConsumeServerRpc();
         }
+    }
+
+    [ServerRpc(RequireOwnership=false)]
+    public void ConsumeServerRpc()
+    {
+        if(gameObject)
+            Destroy(gameObject);
     }
 }
