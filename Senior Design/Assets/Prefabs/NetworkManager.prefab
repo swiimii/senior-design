@@ -54,6 +54,7 @@ MonoBehaviour:
     - MainMenu
     - Lobby
     - main
+    - launchScene
     AllowRuntimeSceneChanges: 0
     NetworkPrefabs:
     - Prefab: {fileID: 156064493794027604, guid: e94a3f0cfef9c974ca5069825a770dab, type: 3}
