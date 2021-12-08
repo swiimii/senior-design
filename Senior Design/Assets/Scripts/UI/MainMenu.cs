@@ -38,4 +38,9 @@ public class MainMenu : MonoBehaviour
             NetworkManager.Singleton.StartClient();
         }
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

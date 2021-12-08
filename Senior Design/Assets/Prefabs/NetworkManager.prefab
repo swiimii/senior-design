@@ -53,8 +53,12 @@ MonoBehaviour:
     RegisteredScenes:
     - MainMenu
     - Lobby
+    - main
+    - launchScene
     AllowRuntimeSceneChanges: 0
-    NetworkPrefabs: []
+    NetworkPrefabs:
+    - Prefab: {fileID: 156064493794027604, guid: e94a3f0cfef9c974ca5069825a770dab, type: 3}
+      PlayerPrefab: 1
     PlayerPrefabHash:
       id: 0
     CreatePlayerPrefab: 0
@@ -82,7 +86,9 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: , ns: , asm: }
+      type: {class: NullableBoolSerializable, ns: MLAPI.Configuration, asm: Unity.Multiplayer.MLAPI.Runtime}
+      data:
+        Value: 1897319656204293034
 --- !u!114 &7916765637312544880
 MonoBehaviour:
   m_ObjectHideFlags: 0

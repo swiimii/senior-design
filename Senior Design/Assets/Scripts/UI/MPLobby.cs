@@ -5,6 +5,7 @@ using UnityEngine;
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable.Collections;
+using MLAPI.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
@@ -14,7 +15,8 @@ public class MPLobby : NetworkBehaviour
     // Dictionary<int, PlayerData> players;
     public NetworkList<PlayerData> players;
     public Text playerListObject;
-    public GameObject startGameButton;
+    public GameObject playerPrefab;
+
 
     private void Start()
     {
@@ -31,7 +33,6 @@ public class MPLobby : NetworkBehaviour
         else
         {
             SetPlayerNameServerRpc(NetworkManager.Singleton.LocalClientId, PlayerPrefs.GetString("Name"));
-            startGameButton.SetActive(false);
         }
         NetworkManager.OnClientConnectedCallback += HandleClientConnection;
         NetworkManager.OnClientDisconnectCallback += HandleClientDisconnect;
@@ -78,17 +79,38 @@ public class MPLobby : NetworkBehaviour
     {
         var newText = "";
         print("Setting Text");
-        foreach(PlayerData p in players)
+        foreach (PlayerData p in players)
         {
             newText += p.Name + "\n";
         }
         UpdatePlayersListClientRpc(newText);
     }
 
+    public void StartGame()
+    {
+        if (IsHost)
+        {
+            StartServerRpc();
+        }
+    }
+
+    [ServerRpc]
+    public void StartServerRpc()
+    {
+        foreach (PlayerData p in players)
+        {
+            var obj = Instantiate(playerPrefab);
+            obj.GetComponent<NetworkObject>().SpawnAsPlayerObject(p.ClientId);
+            print("Spawning object for " + p.Name + " of id " + p.ClientId);
+        }
+        NetworkSceneManager.SwitchScene("main");
+    }
+
     [ClientRpc]
     public void UpdatePlayersListClientRpc(string list)
     {
-        playerListObject.text = list;
+        if(playerListObject)
+            playerListObject.text = list;
     }
 
     public void LeaveLobby()
@@ -107,5 +129,10 @@ public class MPLobby : NetworkBehaviour
         }
         SceneManager.LoadScene("MainMenu");
     }
-    
+
+    private void OnDestroy()
+    {
+        NetworkManager.OnClientConnectedCallback -= HandleClientConnection;
+        NetworkManager.OnClientDisconnectCallback -= HandleClientDisconnect;
+    }
 }
