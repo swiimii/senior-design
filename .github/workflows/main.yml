@@ -16,7 +16,8 @@ jobs:
       # Cache
       - uses: actions/cache@v2
         with:
-          path: Senior Design/Library
+          projectPath: ./Senior Design
+          path: ./Senior Design/Library
           key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
             Library-
