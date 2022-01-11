@@ -16,7 +16,6 @@ jobs:
       # Cache
       - uses: actions/cache@v2
         with:
-          projectPath: ./Senior Design
           path: ./Senior Design/Library
           key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
@@ -28,6 +27,7 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          projectPath: ./Senior Design
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
       # Build
