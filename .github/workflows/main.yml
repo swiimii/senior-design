@@ -16,8 +16,8 @@ jobs:
       # Cache
       - uses: actions/cache@v2
         with:
-          path: Library
-          key: Library-${{ hashFiles('Senior Design/Assets/**', 'Senior Design/Packages/**', 'Senior Design/ProjectSettings/**') }}
+          path: ./Senior-Design/Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: |
             Library-
 
@@ -27,6 +27,7 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          projectPath: ./Senior-Design
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
       # Build
@@ -35,7 +36,8 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          targetPlatform: WebGL
+          projectPath: ./Senior-Design
+          targetPlatform: StandaloneWindows64
 
       # Output
       - uses: actions/upload-artifact@v2
