@@ -3,22 +3,26 @@ name: Actions
 on: [push, pull_request]
 
 jobs:
-  test:
-    name: Run project tests
+  build:
+    name: Create windows build
     runs-on: ubuntu-latest
     steps:
-
       # Checkout
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
           lfs: true
-
-      # Test
-      - name: Run tests
-        uses: game-ci/unity-test-runner@v2
+      # Build
+      - name: Build project
+        uses: game-ci/unity-builder@v2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           projectPath: ./Senior-Design
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          targetPlatform: StandaloneWindows64
+
+      # Output
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build
+          path: build
