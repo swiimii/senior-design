@@ -1,10 +1,10 @@
-name: Actions
+name: Build Project
 
 on: [push, pull_request]
 
 jobs:
   build:
-    name: Build project
+    name: Create windows build
     runs-on: ubuntu-latest
     steps:
       # Checkout
@@ -12,24 +12,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           lfs: true
-
-      # Cache
-      - uses: actions/cache@v2
-        with:
-          path: ./Senior-Design/Library
-          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
-          restore-keys: |
-            Library-
-
-      # Test
-      - name: Run tests
-        uses: game-ci/unity-test-runner@v2
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-        with:
-          projectPath: ./Senior-Design
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-
       # Build
       - name: Build project
         uses: game-ci/unity-builder@v2
