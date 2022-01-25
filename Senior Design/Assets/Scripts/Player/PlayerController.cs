@@ -18,8 +18,7 @@ public class PlayerController : MonoBehaviour {
     private CollisionDetection collisionDetection;
 
     private InputState inputState => provider;
-    private Vector2 MovementDirection => inputState.movementDirection;
-    
+
     private void Awake() {
         reanimator = GetComponent<Reanimator>();
         collisionDetection = GetComponent<CollisionDetection>();
@@ -33,10 +32,12 @@ public class PlayerController : MonoBehaviour {
     }
     
     private void Update() {
-        reanimator.Set(Drivers.IsMoving, MovementDirection != Vector2.zero);
-        reanimator.Set(Drivers.IsMovingHorizontal, MovementDirection.x != 0);
-        reanimator.Set(Drivers.IsMovingRight, MovementDirection.x > 0);
-        reanimator.Set(Drivers.IsMovingUp, MovementDirection.y > 0);
+        Debug.Log(inputState.movementDirection.x == 0 ? "Not Moving" : "Moving");
+
+        reanimator.Set(Drivers.IsMoving, inputState.movementDirection != Vector2.zero);
+        reanimator.Set(Drivers.IsMovingHorizontal, inputState.movementDirection.x != 0);
+        reanimator.Set(Drivers.IsMovingRight, inputState.movementDirection.x > 0);
+        reanimator.Set(Drivers.IsMovingUp, inputState.movementDirection.y > 0);
     }
     
     private void FixedUpdate() {
@@ -48,12 +49,12 @@ public class PlayerController : MonoBehaviour {
         var previousVelocity = collisionDetection.rigidbody2D.velocity;
         var velocityChange = Vector2.zero;
 
-        velocityChange.x = (MovementDirection.x * walkSpeed - previousVelocity.x) / 4;
-        velocityChange.y = (MovementDirection.y * walkSpeed - previousVelocity.y) / 4;
+        velocityChange.x = (inputState.movementDirection.x * walkSpeed - previousVelocity.x) / 4;
+        velocityChange.y = (inputState.movementDirection.y * walkSpeed - previousVelocity.y) / 4;
         
         if (collisionDetection.wallContact.HasValue) {
             var wallDirection = (int) Mathf.Sign(collisionDetection.wallContact.Value.point.x - transform.position.x);
-            var walkDirection = (int) Mathf.Sign(MovementDirection.x);
+            var walkDirection = (int) Mathf.Sign(inputState.movementDirection.x);
 
             if (walkDirection == wallDirection)
                 velocityChange.x = 0;
