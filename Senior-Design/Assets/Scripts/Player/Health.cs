@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
-using MLAPI.NetworkVariable;
-using MLAPI.Messaging;
+using Unity.Netcode;
+using Unity.Netcode.Components;
 
 public class Health : NetworkBehaviour, IDamageable
 {
@@ -15,8 +14,7 @@ public class Health : NetworkBehaviour, IDamageable
     public NetworkVariable<bool> recentlyDamaged;
 
     [SerializeField]
-    NetworkVariable<int> health = new NetworkVariable<int>(new NetworkVariableSettings{
-        ReadPermission=NetworkVariablePermission.Everyone, WritePermission=NetworkVariablePermission.OwnerOnly});
+    NetworkVariable<int> health = new NetworkVariable<int>(NetworkVariableReadPermission.Everyone);
 
     private void Start()
     {

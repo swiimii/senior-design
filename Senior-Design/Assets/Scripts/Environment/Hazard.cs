@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
-using MLAPI.Messaging;
+using Unity.Netcode;
 
 public class Hazard : NetworkBehaviour
 {
@@ -12,13 +11,13 @@ public class Hazard : NetworkBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         print("Collision");
-        if (collision.gameObject.GetComponent<NetworkObject>() && collision.gameObject.GetComponent<NetworkObject>().IsLocalPlayer)
+        if (collision.gameObject && collision.gameObject.TryGetComponent<NetworkObject>(out var nObj) && nObj.IsLocalPlayer)
         {
             print("Check passed");
-            if (collision.gameObject.GetComponent<Health>())
+            if (collision.gameObject.TryGetComponent<Health>(out var healthComponent))
             {
                 var knockbackDirection = collision.gameObject.transform.position - transform.position;
-                collision.gameObject.GetComponent<Health>().DamageServerRpc(damage, description, knockbackDirection);
+                healthComponent.DamageServerRpc(damage, description, knockbackDirection);
             }
         }
     }

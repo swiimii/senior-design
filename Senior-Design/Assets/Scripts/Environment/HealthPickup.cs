@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
-using MLAPI.Messaging;
+using Unity.Netcode;
 
 public class HealthPickup : NetworkBehaviour
 {
@@ -11,9 +10,9 @@ public class HealthPickup : NetworkBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         print("Collision");
-        if (collision.gameObject.GetComponent<Health>() && collision.gameObject.GetComponent<NetworkObject>().IsLocalPlayer)
+        if (collision.gameObject.TryGetComponent<Health>(out var healthComponent) && collision.gameObject.GetComponent<NetworkObject>().IsLocalPlayer)
         {
-            collision.gameObject.GetComponent<Health>().HealServerRpc(healValue);
+            healthComponent.HealServerRpc(healValue);
             ConsumeServerRpc();
         }
     }

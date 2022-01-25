@@ -2,10 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable.Collections;
-using MLAPI.SceneManagement;
+using Unity.Netcode;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
@@ -103,7 +100,7 @@ public class MPLobby : NetworkBehaviour
             obj.GetComponent<NetworkObject>().SpawnAsPlayerObject(p.ClientId);
             print("Spawning object for " + p.Name + " of id " + p.ClientId);
         }
-        NetworkSceneManager.SwitchScene("main");
+        NetworkManager.SceneManager.LoadScene("main", LoadSceneMode.Single);
     }
 
     [ClientRpc]
@@ -115,24 +112,16 @@ public class MPLobby : NetworkBehaviour
 
     public void LeaveLobby()
     {
-        if (IsHost)
-        {
-            NetworkManager.Singleton.StopHost();
-            NetworkManager.Singleton.Shutdown();
-            Destroy(NetworkManager.Singleton.gameObject);
-        }
-        else
-        {
-            NetworkManager.Singleton.StopClient();
-            NetworkManager.Singleton.Shutdown();
-            Destroy(NetworkManager.Singleton.gameObject);
-        }
+        NetworkManager.Singleton.Shutdown();
+        Destroy(NetworkManager.Singleton.gameObject);
         SceneManager.LoadScene("MainMenu");
     }
 
-    private void OnDestroy()
+    public override void OnDestroy()
     {
         NetworkManager.OnClientConnectedCallback -= HandleClientConnection;
         NetworkManager.OnClientDisconnectCallback -= HandleClientDisconnect;
+        players.Dispose();
+        base.OnDestroy();
     }
 }
