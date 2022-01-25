@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using MLAPI.NetworkVariable;
-using MLAPI.Messaging;
-using MLAPI;
+using Unity.Netcode;
+using Unity.Collections;
 using System;
-using MLAPI.NetworkVariable.Collections;
 
 public class MP_ChatUIScript : NetworkBehaviour
 {
@@ -14,7 +12,7 @@ public class MP_ChatUIScript : NetworkBehaviour
     public Text chatText = null;
     public InputField chatInput = null;
 
-    static NetworkVariableString messages = new NetworkVariableString("Temp");
+    static NetworkVariable<FixedString32Bytes> messages = new NetworkVariable<FixedString32Bytes>("Temp");
 
     private string localPlayerName => PlayerPrefs.GetString("Name");
 
@@ -25,9 +23,9 @@ public class MP_ChatUIScript : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void updateUIClientRpc(string previousValue, string newValue)
+    private void updateUIClientRpc(FixedString32Bytes previousValue, FixedString32Bytes newValue)
     {
-        chatText.text += "\n" + newValue.Substring(previousValue.Length, newValue.Length - previousValue.Length);
+        chatText.text += "\n" + newValue.ToString().Substring(previousValue.Length, newValue.Length - previousValue.Length);
     }
 
     public void handleSend()

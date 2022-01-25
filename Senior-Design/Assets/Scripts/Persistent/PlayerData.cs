@@ -1,22 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
-using MLAPI.Serialization;
+using Unity.Netcode;
+using Unity.Collections;
 
-public struct PlayerData : INetworkSerializable
+public struct PlayerData : INetworkSerializable, System.IEquatable<PlayerData>
 {
-    public string Name;
+    public FixedString32Bytes Name;
     public ulong ClientId;
-    public PlayerData(string name, ulong clientId)
+    public PlayerData(FixedString32Bytes name, ulong clientId)
     {
         Name = name;
         ClientId = clientId;
     }
 
-    public void NetworkSerialize(NetworkSerializer serializer)
+    public bool Equals(PlayerData other)
     {
-        serializer.Serialize(ref Name);
-        serializer.Serialize(ref ClientId);
+        return this.Name == other.Name && this.ClientId == other.ClientId;
+    }
+
+    public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+    {
+        serializer.SerializeValue(ref Name);
+        serializer.SerializeValue(ref ClientId);
     }
 }

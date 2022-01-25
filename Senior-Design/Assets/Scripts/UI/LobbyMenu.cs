@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using MLAPI;
-using MLAPI.NetworkVariable.Collections;
-using MLAPI.Messaging;
+using Unity.Netcode;
 
 public class LobbyMenu : MonoBehaviour
 {

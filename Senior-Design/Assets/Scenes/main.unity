@@ -237,11 +237,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NetworkInstanceId: 0
-  PrefabHash: 10374537260317059352
-  PrefabHashGenerator: PuzzleBox
+  GlobalObjectIdHash: 4167547493
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &384460741
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,8 +527,8 @@ GameObject:
   - component: {fileID: 590170487}
   - component: {fileID: 590170486}
   - component: {fileID: 590170488}
-  - component: {fileID: 590170489}
   - component: {fileID: 590170490}
+  - component: {fileID: 590170489}
   m_Layer: 0
   m_Name: FireHazard
   m_TagString: Untagged
@@ -640,11 +639,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NetworkInstanceId: 0
-  PrefabHash: 13389651068368924864
-  PrefabHashGenerator: EnvironmentalDamage
+  GlobalObjectIdHash: 977249115
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &590170490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -874,11 +872,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NetworkInstanceId: 0
-  PrefabHash: 189026212394788571
-  PrefabHashGenerator: HealthPickup
+  GlobalObjectIdHash: 3809561920
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &888095102
 GameObject:
   m_ObjectHideFlags: 0

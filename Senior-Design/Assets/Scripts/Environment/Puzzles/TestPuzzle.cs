@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using MLAPI;
-using MLAPI.Messaging;
-using MLAPI.NetworkVariable;
+using Unity.Netcode;
+using Unity.Collections;
 
 public class TestPuzzle : IPuzzle
 {
-    private NetworkVariable<string> currentState;
+    private NetworkVariable<FixedString32Bytes> currentState;
     [SerializeField] string startingState, targetState;
     [SerializeField] InputField stateDisplay;
 
@@ -20,7 +19,7 @@ public class TestPuzzle : IPuzzle
         }
         else if (NetworkManager.Singleton.IsServer)
         {
-            currentState = new NetworkVariable<string>();
+            currentState = new NetworkVariable<FixedString32Bytes>();
             currentState.Value = startingState;
         }
     }
@@ -37,9 +36,9 @@ public class TestPuzzle : IPuzzle
         print("disabled");
     }
 
-    private NetworkVariable<string>.OnValueChangedDelegate UpdateDisplayedValue()
+    private NetworkVariable<FixedString32Bytes>.OnValueChangedDelegate UpdateDisplayedValue()
     {
-        stateDisplay.text = currentState.Value;
+        stateDisplay.text = "" + currentState.Value;
         print("updating value");
         return null;
     }

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using MLAPI;
-using MLAPI.SceneManagement;
+using Unity.Netcode;
 
 public class MainMenu : MonoBehaviour
 {
@@ -24,7 +23,7 @@ public class MainMenu : MonoBehaviour
             PlayerPrefs.Save();
             var lobbySceneName = "Lobby";
             NetworkManager.Singleton.StartHost();
-            NetworkSceneManager.SwitchScene(lobbySceneName);
+            NetworkManager.Singleton.SceneManager.LoadScene(lobbySceneName, LoadSceneMode.Single);
         }
     }
 
