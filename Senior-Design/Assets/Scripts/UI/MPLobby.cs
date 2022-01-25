@@ -121,6 +121,7 @@ public class MPLobby : NetworkBehaviour
     {
         NetworkManager.OnClientConnectedCallback -= HandleClientConnection;
         NetworkManager.OnClientDisconnectCallback -= HandleClientDisconnect;
+        players.Dispose();
         base.OnDestroy();
     }
 }
