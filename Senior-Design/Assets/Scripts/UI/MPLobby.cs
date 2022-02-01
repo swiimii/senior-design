@@ -17,6 +17,12 @@ public class MPLobby : NetworkBehaviour
 
     private void Start()
     {
+        if (!NetworkManager.Singleton)
+        {
+            // initial scene was not loaded
+            return;
+        }
+
         if (IsServer)
         {
             players = new NetworkList<PlayerData>();
@@ -31,8 +37,8 @@ public class MPLobby : NetworkBehaviour
         {
             SetPlayerNameServerRpc(NetworkManager.Singleton.LocalClientId, PlayerPrefs.GetString("Name"));
         }
-        NetworkManager.OnClientConnectedCallback += HandleClientConnection;
-        NetworkManager.OnClientDisconnectCallback += HandleClientDisconnect;
+        NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnection;
+        NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnect;
     }
 
     private void HandleClientConnection(ulong clientId)
@@ -119,9 +125,17 @@ public class MPLobby : NetworkBehaviour
 
     public override void OnDestroy()
     {
-        NetworkManager.OnClientConnectedCallback -= HandleClientConnection;
-        NetworkManager.OnClientDisconnectCallback -= HandleClientDisconnect;
-        players.Dispose();
+        if (NetworkManager.Singleton)
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnection;
+            NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnect;
+        }
+
+        if (players != null)
+        {
+            players.Dispose();
+
+        }
         base.OnDestroy();
     }
 }
