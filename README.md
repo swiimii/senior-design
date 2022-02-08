@@ -20,7 +20,7 @@ The game is made using Unity/C#, and is currently in early development (as of De
 ### Networking Details
 Our game will use a Client/Server network architecture, where the "Host" of the game will act as a server and client simultaneously, and other players will all act as clients.
 
-## [Installation Guide](https://github.com/swiimii/senior-design/tree/main/User%20Guides/installation-guide.md)
+## [Installation Guide](https://github.com/swiimii/senior-design/tree/main/Documents/User%20Guides/installation-guide.md)
 
 ## [User Stories and Diagrams](https://github.com/swiimii/senior-design/tree/main/Design%20Diagrams)
 
