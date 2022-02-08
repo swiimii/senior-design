@@ -13,7 +13,12 @@ public class LobbyMenu : MonoBehaviour
 
     void Start()
     {
-        if (!NetworkManager.Singleton.IsHost)
+        if (!NetworkManager.Singleton)
+        {
+            // Will be reloading; Main menu was not loaded
+            return;
+        }
+        if ( !NetworkManager.Singleton.IsHost)
         {
             startButton.SetActive(false);
         }

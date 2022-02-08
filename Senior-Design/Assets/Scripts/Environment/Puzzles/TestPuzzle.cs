@@ -11,11 +11,11 @@ public class TestPuzzle : IPuzzle
     [SerializeField] string startingState, targetState;
     [SerializeField] InputField stateDisplay;
 
-    private void Awake()
+    private void Start()
     {
         if (!NetworkManager.Singleton)
         {
-            Debug.LogError("No Network Manager Detected");
+            Debug.Log("No Network Manager Detected");
         }
         else if (NetworkManager.Singleton.IsServer)
         {
@@ -26,14 +26,20 @@ public class TestPuzzle : IPuzzle
 
     private void OnEnable()
     {
-        currentState.OnValueChanged += UpdateDisplayedValue();
-        print("enabled");
+        if (currentState != null)
+        {
+            currentState.OnValueChanged += UpdateDisplayedValue();
+            print("enabled");
+        }
     }
 
     private void OnDisable()
     {
-        currentState.OnValueChanged -= UpdateDisplayedValue();
-        print("disabled");
+        if (currentState != null)
+        {
+            currentState.OnValueChanged -= UpdateDisplayedValue();
+            print("disabled");
+        }
     }
 
     private NetworkVariable<FixedString32Bytes>.OnValueChangedDelegate UpdateDisplayedValue()
