@@ -151,7 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c4a6c8fef586bf4cb2a529e72077520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collider: {fileID: 0}
   provider: {fileID: 11400000, guid: 06d471742828fa84ab6d62b1751c6d4e, type: 2}
+  reanimator: {fileID: 1286036668}
+  collisionDetection: {fileID: 156064493794027601}
+  interactionLogic: {fileID: 11400000, guid: 0f5679875441d914fb441610a729cb79, type: 2}
   walkSpeed: 7
 --- !u!114 &156064493794027601
 MonoBehaviour:
@@ -198,11 +202,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NetworkInstanceId: 0
-  PrefabHash: 1897319656204293034
-  PrefabHashGenerator: Player
+  GlobalObjectIdHash: 951099334
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &5470170057290936289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,42 +230,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FixedSendsPerSecond: 60
-  AssumeSyncedSends: 1
-  InterpolatePosition: 1
-  SnapDistance: 10
-  InterpolateServer: 1
-  MinMeters: 0.15
-  MinDegrees: 1.5
-  ExtrapolatePosition: 0
-  MaxSendsToExtrapolate: 5
-  Channel: 
-  EnableRange: 0
-  EnableNonProvokedResendChecks: 0
-  DistanceSendrate:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 20
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 500
-      value: 20
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  InLocalSpace: 0
+  Interpolate: 1
+  CanCommitToTransform: 0
 --- !u!114 &293518978088155804
 MonoBehaviour:
   m_ObjectHideFlags: 0

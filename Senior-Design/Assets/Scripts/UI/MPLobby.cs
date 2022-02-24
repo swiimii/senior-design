@@ -106,7 +106,7 @@ public class MPLobby : NetworkBehaviour
             obj.GetComponent<NetworkObject>().SpawnAsPlayerObject(p.ClientId);
             print("Spawning object for " + p.Name + " of id " + p.ClientId);
         }
-        NetworkManager.SceneManager.LoadScene("main", LoadSceneMode.Single);
+        NetworkManager.SceneManager.LoadScene("main-copy", LoadSceneMode.Single);
     }
 
     [ClientRpc]

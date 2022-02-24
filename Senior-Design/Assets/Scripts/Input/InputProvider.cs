@@ -7,7 +7,6 @@ public struct InputState {
 }
 
 public interface IInputProvider {
-    public event UnityAction<float> onInteract; 
     public InputState GetState();
     void EnableInput();
     void DisableInput();
@@ -17,9 +16,10 @@ public interface IInputProvider {
 public class InputProvider : ScriptableObject, IInputProvider, PlayerInput.IGameplayActions {
     // Gameplay
 
-    public Vector2 movementDirection;
-    public event UnityAction<float> onInteract;
+    private Vector2 movementDirection;
     public event UnityAction<Vector2> MousePosEvent;
+    public event UnityAction InteractionCancelledEvent;
+    public event UnityAction InteractionStartedEvent;
 
     private PlayerInput GameInput { get; set; }
 
@@ -39,9 +39,11 @@ public class InputProvider : ScriptableObject, IInputProvider, PlayerInput.IGame
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed) {
-            onInteract?.Invoke(context.ReadValue<float>());
-        }
+        if (InteractionStartedEvent != null && context.phase == InputActionPhase.Started)
+            InteractionStartedEvent.Invoke();
+
+        if (InteractionCancelledEvent != null && context.phase == InputActionPhase.Canceled)
+            InteractionCancelledEvent.Invoke();
     }
 
     public void OnMouse(InputAction.CallbackContext context)
@@ -61,8 +63,8 @@ public class InputProvider : ScriptableObject, IInputProvider, PlayerInput.IGame
     public void EnableInput()
     {
         GameInput.Gameplay.Enable();
+        Helper.CustomLog("Gameplay Input Enabled", LogColor.White);
     }
-
     public void DisableInput()
     {
         GameInput.Gameplay.Disable();
