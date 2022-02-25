@@ -25,10 +25,19 @@ public class PlayerController : MonoBehaviour {
     
     [SerializeField] private float walkSpeed = 7;
     private void Awake() {
+        provider.EnableInput();
+        
         collider = GetComponent<BoxCollider2D>();
         reanimator = GetComponent<Reanimator>();
         collisionDetection = GetComponent<CollisionDetection>();
+        
+        // interactionLogic.Initialize(inputState);
     }
+
+    private void OnDisable() {
+        provider.DisableInput();
+    }
+
     private void Update() {
         interactionLogic.UpdateInteractable(this, collider.bounds.center);
         

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class DestroyInteractable : InteractableBase {
+public class DestroyInteractable : Interactable {
     public override void OnInteract() {
         base.OnInteract();
         

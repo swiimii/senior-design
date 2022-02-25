@@ -11,7 +11,7 @@ public interface IInteractable {
     void OnInteract();
 }
 
-public class InteractableBase : MonoBehaviour, IInteractable {
+public class Interactable : MonoBehaviour, IInteractable {
     [Header("Interactable Settings"), Tooltip("Make very big if not work"), SerializeField]
     private float requiredDistance;
 

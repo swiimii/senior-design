@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78413cda9053f94986105faadfc781f, type: 3}
   m_Name: InteractionLogic
   m_EditorClassIdentifier: 
-  useRequiredDistance:
-    enabled: 0
-    value: 0
-  interactionInputData: {fileID: 11400000, guid: bf4fc5195758a814986c234e2c530256, type: 2}
+  inputProvider: {fileID: 11400000, guid: 06d471742828fa84ab6d62b1751c6d4e, type: 2}
   interactionData: {fileID: 11400000, guid: d0f1ad7dc4142d9409d15b9e6b0529ef, type: 2}
   rayDistance: 5
   interactionLayer:
     serializedVersion: 2
     m_Bits: 128
+  useRequiredDistance:
+    enabled: 0
+    value: 0

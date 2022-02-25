@@ -2,10 +2,6 @@
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
-public struct InputState {
-    public Vector2 movementDirection;
-}
-
 public interface IInputProvider {
     public InputState GetState();
     void EnableInput();
@@ -16,34 +12,44 @@ public interface IInputProvider {
 public class InputProvider : ScriptableObject, IInputProvider, PlayerInput.IGameplayActions {
     // Gameplay
 
-    private Vector2 movementDirection;
+    private PlayerInput GameInput { get; set; }
+    public InputState inputState;
     public event UnityAction<Vector2> MousePosEvent;
     public event UnityAction InteractionCancelledEvent;
     public event UnityAction InteractionStartedEvent;
 
-    private PlayerInput GameInput { get; set; }
 
     private void OnEnable()
     {
         GameInput ??= new PlayerInput();
         GameInput.Gameplay.SetCallbacks(this);
-        EnableInput();
     }
 
-    private void OnDisable() => DisableInput();
+    //private void OnDisable() => DisableInput();
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        movementDirection = context.ReadValue<Vector2>();
+        inputState.movementDirection = context.ReadValue<Vector2>();
     }
 
-    public void OnInteract(InputAction.CallbackContext context)
-    {
-        if (InteractionStartedEvent != null && context.phase == InputActionPhase.Started)
-            InteractionStartedEvent.Invoke();
-
-        if (InteractionCancelledEvent != null && context.phase == InputActionPhase.Canceled)
-            InteractionCancelledEvent.Invoke();
+    public void OnInteract(InputAction.CallbackContext context) {
+        switch (context.phase) {
+            case InputActionPhase.Started:
+                Debug.Log("VAR");
+                inputState.interactClicked = true;
+                inputState.interactReleased = false;
+                inputState.isInteracting = true;
+                inputState.holdTimer = 0;
+                InteractionStartedEvent?.Invoke();
+                break;
+            case InputActionPhase.Canceled:
+                inputState.interactClicked = false;
+                inputState.interactReleased = true;
+                inputState.isInteracting = false;
+                inputState.holdTimer = 0;
+                InteractionCancelledEvent?.Invoke();
+                break;
+        }
     }
 
     public void OnMouse(InputAction.CallbackContext context)
@@ -56,7 +62,10 @@ public class InputProvider : ScriptableObject, IInputProvider, PlayerInput.IGame
     public InputState GetState()
     {
         return new InputState {
-            movementDirection = movementDirection,
+            movementDirection = inputState.movementDirection,
+            interactClicked = inputState.interactClicked,
+            interactReleased = inputState.interactReleased,
+            isInteracting = inputState.isInteracting,
         };
     }
 
@@ -68,5 +77,6 @@ public class InputProvider : ScriptableObject, IInputProvider, PlayerInput.IGame
     public void DisableInput()
     {
         GameInput.Gameplay.Disable();
+        Helper.CustomLog("Gameplay Input Disabled", LogColor.White);
     }
 }

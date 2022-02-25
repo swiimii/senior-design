@@ -2,9 +2,9 @@
 
 [CreateAssetMenu(fileName = "InteractionData", menuName = "InteractionSystem/InteractionData", order = 0)]
 public class InteractionData : ScriptableObject {
-    private InteractableBase interactable;
+    private Interactable interactable;
 
-    public InteractableBase Interactable {
+    public Interactable Interactable {
         get => interactable;
         set => interactable = value;
     }
@@ -14,7 +14,7 @@ public class InteractionData : ScriptableObject {
         ResetData();
     }
 
-    public bool IsSameInteractable(InteractableBase newInteractable) => interactable == newInteractable;
+    public bool IsSameInteractable(Interactable newInteractable) => interactable == newInteractable;
 
     public bool IsEmpty() => interactable == null;
 

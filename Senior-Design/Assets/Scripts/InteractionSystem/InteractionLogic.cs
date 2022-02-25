@@ -3,14 +3,13 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "InteractionLogic", menuName = "InteractionSystem/InteractionLogic", order = 0)]
 public class InteractionLogic : ScriptableObject {
-    [SerializeField] private Optional<float> useRequiredDistance;
-    [SerializeField] private InteractionInputData interactionInputData;
+    [SerializeField] private InputProvider inputProvider;
     [SerializeField] private InteractionData interactionData;
+    private Interactable interactable;
 
-    private InteractableBase interactable;
-    
     [SerializeField] private float rayDistance = 5f;
     [SerializeField] private LayerMask interactionLayer;
+    [SerializeField] private Optional<float> useRequiredDistance;
 
     public void UpdateInteractable(PlayerController player, Vector3 center) {
         CheckForInteractable(player, center);
@@ -22,7 +21,7 @@ public class InteractionLogic : ScriptableObject {
         bool hitSomething = Helper.Raycast(center,
             player.transform.right, rayDistance, interactionLayer, out var ray);
         if (hitSomething) {
-            interactable = ray.transform.GetComponent<InteractableBase>();
+            interactable = ray.transform.GetComponent<Interactable>();
             if (interactable != null) {
                 if (interactionData.IsEmpty()) {
                     interactionData.Interactable = interactable;
@@ -44,24 +43,24 @@ public class InteractionLogic : ScriptableObject {
     }
 
     private void CheckForInteractableInput(PlayerController player) {
-        if (interactionData.IsEmpty() || !interactionInputData.isInteracting ||
+        if (interactionData.IsEmpty() || !inputProvider.inputState.isInteracting ||
             !interactionData.Interactable.IsInteractable ||
             interactionData.Interactable.IsSpecialInteraction) return;
 
-        var distanceBetweenInteractable = interactable.transform.position.x - player.transform.position.x;
+        float distanceBetweenInteractable = interactable.transform.position.x - player.transform.position.x;
         Debug.Log(distanceBetweenInteractable);
         if (distanceBetweenInteractable >= interactable.RequiredDistance && useRequiredDistance.Enabled) return;
 
         if (interactionData.Interactable.HoldInteract) {
-            interactionInputData.holdTimer += Time.deltaTime;
-            if (!(interactionInputData.holdTimer >= interactionData.Interactable.HoldDuration)) return;
+            inputProvider.inputState.holdTimer += Time.deltaTime;
+            if (!(inputProvider.inputState.holdTimer >= interactionData.Interactable.HoldDuration)) return;
             interactionData.Interact();
-            interactionInputData.isInteracting = false;
+            inputProvider.inputState.isInteracting = false;
         }
         else {
             interactionData.Interact();
             // Debug.Log("called Interact()");
-            interactionInputData.isInteracting = false;
+            inputProvider.inputState.isInteracting = false;
         }
     }
 
