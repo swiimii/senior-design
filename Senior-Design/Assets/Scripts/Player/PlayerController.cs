@@ -30,8 +30,6 @@ public class PlayerController : MonoBehaviour {
         collider = GetComponent<BoxCollider2D>();
         reanimator = GetComponent<Reanimator>();
         collisionDetection = GetComponent<CollisionDetection>();
-        
-        // interactionLogic.Initialize(inputState);
     }
 
     private void OnDisable() {
