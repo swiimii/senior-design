@@ -20,7 +20,7 @@ public static class DefaultSceneLoader
         if (state == PlayModeStateChange.EnteredPlayMode)
         {
             if (EditorSceneManager.GetActiveScene().name == "1") {
-                EditorSceneManager.LoadScene("Scenes/Test/1");
+                EditorSceneManager.LoadScene("1");
             }
             else
             {

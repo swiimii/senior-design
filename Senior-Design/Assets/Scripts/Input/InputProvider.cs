@@ -25,8 +25,6 @@ public class InputProvider : ScriptableObject, IInputProvider, PlayerInput.IGame
         GameInput.Gameplay.SetCallbacks(this);
     }
 
-    //private void OnDisable() => DisableInput();
-
     public void OnMove(InputAction.CallbackContext context)
     {
         inputState.movementDirection = context.ReadValue<Vector2>();
@@ -35,7 +33,6 @@ public class InputProvider : ScriptableObject, IInputProvider, PlayerInput.IGame
     public void OnInteract(InputAction.CallbackContext context) {
         switch (context.phase) {
             case InputActionPhase.Started:
-                Debug.Log("VAR");
                 inputState.interactClicked = true;
                 inputState.interactReleased = false;
                 inputState.isInteracting = true;
