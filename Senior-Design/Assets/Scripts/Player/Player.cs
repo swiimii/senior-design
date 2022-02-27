@@ -66,7 +66,7 @@ public class Player : NetworkBehaviour {
         }
     }
     private void HandleMovement() {
-        rigidbody2D.velocity = inputState.movementDirection * walkSpeed;
+        rigidbody2D.velocity = inputState.movementDirection * (walkSpeed * Time.fixedDeltaTime);
     }
     
     private List<Sprite> GetSpriteDirection() {
