@@ -24,27 +24,12 @@ public class Player : NetworkBehaviour {
     private float idleTime;
 
     private void Awake() {
-        
         rigidbody2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         collisionDetection = GetComponent<CollisionDetection>();
     }
 
-    private void Start() {
-        switch (IsLocalPlayer) {
-            case false:
-                name = "ClonePlayer";
-                enabled = false;
-                break;
-            case true:
-                name = "MainPlayer";
-                break;
-        }
-    }
-    
     private void FixedUpdate() {
-        if (!IsOwner) return;
-
         HandleMovement();
         HandleAnimation();
         HandleFlip();
@@ -73,10 +58,16 @@ public class Player : NetworkBehaviour {
         List<Sprite> selectedSprites = null;
         
         if (inputState.movementDirection.y > 0) {
-            selectedSprites = Mathf.Abs(inputState.movementDirection.x) > 0 ? neSprites : nSprites;
+            if (Mathf.Abs(inputState.movementDirection.x) > 0)
+                selectedSprites = neSprites;
+            else
+                selectedSprites = nSprites;
         }
         else if (inputState.movementDirection.y < 0) {
-            selectedSprites = Mathf.Abs(inputState.movementDirection.x) > 0 ? seSprites : sSprites;
+            if (Mathf.Abs(inputState.movementDirection.x) > 0)
+                selectedSprites = seSprites;
+            else
+                selectedSprites = sSprites;
         }
         else {
             if (Mathf.Abs(inputState.movementDirection.x) > 0) {

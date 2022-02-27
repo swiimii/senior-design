@@ -9,4 +9,6 @@ public struct InputState {
     public bool interactReleased;
     public bool isInteracting;
     public float holdTimer;
+    
+    
 }

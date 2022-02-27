@@ -55,6 +55,7 @@ public class InputProvider : ScriptableObject, IInputProvider, PlayerInput.IGame
     }
     
     public static implicit operator InputState(InputProvider provider) => provider.GetState();
+    public static implicit operator Vector2(InputProvider provider) => provider.GetState().movementDirection.normalized;
     
     public InputState GetState()
     {
