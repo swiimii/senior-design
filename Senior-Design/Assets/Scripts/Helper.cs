@@ -7,7 +7,7 @@ using UnityEngine;
 using System.Linq;
 // using UnityEngine.EventSystems;
 using UnityEditor;
-using UnityEditor.Animations;
+//using UnityEditor.Animations;
 
 
 public enum LogColor {
@@ -87,12 +87,12 @@ public static class Helper {
     /// string stateName = myStateNames[0];
     /// </code>
     /// </example>
-    public static AnimatorState[] GetStateNames(Animator animator) {
-        var controller = animator ? animator.runtimeAnimatorController as AnimatorController : null;
-        return controller == null
-            ? null
-            : controller.layers.SelectMany(l => l.stateMachine.states).Select(s => s.state).ToArray();
-    }
+    // public static AnimatorState[] GetStateNames(Animator animator) {
+    //     var controller = animator ? animator.runtimeAnimatorController as AnimatorController : null;
+    //     return controller == null
+    //         ? null
+    //         : controller.layers.SelectMany(l => l.stateMachine.states).Select(s => s.state).ToArray();
+    // }
 
 
     /// <summary>

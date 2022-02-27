@@ -15,10 +15,10 @@ GameObject:
   - component: {fileID: 156064493794027566}
   - component: {fileID: 156064493794027601}
   - component: {fileID: 1286036668}
-  - component: {fileID: 8644935769116328620}
-  - component: {fileID: 5470170057290936289}
-  - component: {fileID: 1741151495779317143}
   - component: {fileID: 293518978088155804}
+  - component: {fileID: 8644935769116328620}
+  - component: {fileID: 1741151495779317143}
+  - component: {fileID: 7414004664822405634}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -190,6 +190,25 @@ MonoBehaviour:
   fps: 7
   temporaryDrivers:
   - idleTransition
+--- !u!114 &293518978088155804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156064493794027604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329797bc6f7189c42b834550cb4efdf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarObject: {fileID: 2212328607312137432}
+  maxBarLength: 0
+  mostRecentAttacker: 0
+  recentlyDamaged:
+    m_InternalValue: 0
+  health:
+    m_InternalValue: 0
 --- !u!114 &8644935769116328620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,18 +225,6 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &5470170057290936289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 156064493794027604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83890d1f7a58cc54c991585071c3afc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1741151495779317143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,7 +252,7 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   CanCommitToTransform: 0
---- !u!114 &293518978088155804
+--- !u!114 &7414004664822405634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -254,16 +261,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 156064493794027604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 329797bc6f7189c42b834550cb4efdf5, type: 3}
+  m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBarObject: {fileID: 2212328607312137432}
-  maxBarLength: 0
-  mostRecentAttacker: 0
-  recentlyDamaged:
-    m_InternalValue: 0
-  health:
-    m_InternalValue: 0
 --- !u!1 &2212328607312137432
 GameObject:
   m_ObjectHideFlags: 0
