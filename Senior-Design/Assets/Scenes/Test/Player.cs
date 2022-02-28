@@ -2,84 +2,131 @@
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
-using Unity.Netcode.Components;
 using UnityEngine;
 
+public enum PlayerState {
+    Idle,
+    Walk,
+}
+
 public class Player : NetworkBehaviour {
-    [SerializeField] private InputProvider inputProvider;
-    private InputState inputState => inputProvider;
+    private static class AnimationStates {
+        public const string PlayerNorthEast = "PlayerNorthEast";
+        public const string PlayerNorthWest = "PlayerNorthWest";
+        public const string PlayerNorth = "PlayerNorth";
+        public const string PlayerSouthEast = "PlayerSouthEast";
+        public const string PlayerSouthWest = "PlayerSouthWest";
+        public const string PlayerSouth = "PlayerSouth";
+        public const string PlayerEast = "PlayerEast";
+        public const string PlayerWest = "PlayerWest";
+    }
+    private static InputState inputState => InputManager.Instance.InputProvider;
 
     private Rigidbody2D rb;
     private CollisionDetection cd;
     private Animator anim;
+    private SpriteRenderer sr;
 
-    private NetworkVariable<PlayerData> playerName = new NetworkVariable<PlayerData>();
-    private string Name => playerName.Value;
-    private bool overlaySet;
-
-    [SerializeField] private TMP_Text playerNameText;
     [SerializeField] private float walkSpeed = 7f;
+
+    // Network Variables //
+    [SerializeField] private NetworkVariable<PlayerState> networkPlayerState = new NetworkVariable<PlayerState>();
+    [SerializeField] private NetworkVariable<NetworkString> playerNetworkName = new NetworkVariable<NetworkString>();
+    [SerializeField] private NetworkVariable<NetworkString> animationClipName = new NetworkVariable<NetworkString>();
+    private bool overlaySet = false;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         cd = GetComponent<CollisionDetection>();
         anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     public override void OnNetworkSpawn() {
-        playerName.Value = new PlayerData("Raja", NetworkManager.Singleton.LocalClientId);
+        if (IsServer) {
+            playerNetworkName.Value = $"Player {OwnerClientId}";
+        }
     }
 
-    private void FixedUpdate() {
-        playerNameText.text = Name;
-
-        HandleMovement();
-        HandleAnimation();
-        cd.ActivateTopDownCollision(inputState.movementDirection);
+    private void Start() {
+        if (IsClient && IsOwner) {
+            transform.position = new Vector3(0, 0, 0);
+        }
     }
 
-    private void HandleMovement() {
+    private void Update() {
+        SetOverlay();
+        
+        if (IsClient && IsOwner) {
+            ClientMovementAndAnimation();
+            cd.ActivateTopDownCollision(inputState.movementDirection);
+        }
+        
+        ClientVisuals();
+    }
+
+    private void ClientVisuals() {
+        anim.speed = networkPlayerState.Value == PlayerState.Idle ? 0 : 1;
+    }
+
+    private void ClientMovementAndAnimation() {
         rb.velocity = inputState.movementDirection * walkSpeed;
-    }
 
-    private void HandleAnimation() {
         if (inputState.movementDirection.y > 0) {
             if (inputState.movementDirection.x > 0) {
-                PlayAnimationClip("PlayerNorthEast");
+                PlayAnimationClipServerRpc(AnimationStates.PlayerNorthEast);
             }
             else if (inputState.movementDirection.x < 0) {
-                PlayAnimationClip("PlayerNorthWest");
+                PlayAnimationClipServerRpc(AnimationStates.PlayerNorthWest);
             }
             else {
-                PlayAnimationClip("PlayerNorth");
+                PlayAnimationClipServerRpc(AnimationStates.PlayerNorth);
             }
         }
         else if (inputState.movementDirection.y < 0) {
             if (inputState.movementDirection.x > 0) {
-                PlayAnimationClip("PlayerSouthEast");
+                PlayAnimationClipServerRpc(AnimationStates.PlayerSouthEast);
             }
             else if (inputState.movementDirection.x < 0) {
-                PlayAnimationClip("PlayerSouthWest");
+                PlayAnimationClipServerRpc(AnimationStates.PlayerSouthWest);
             }
             else {
-                PlayAnimationClip("PlayerSouth");
+                PlayAnimationClipServerRpc(AnimationStates.PlayerSouth);
             }
         }
         else {
             if (inputState.movementDirection.x > 0) {
-                PlayAnimationClip("PlayerEast");
+                PlayAnimationClipServerRpc(AnimationStates.PlayerEast);
             }
             else if (inputState.movementDirection.x < 0) {
-                PlayAnimationClip("PlayerWest");
+                PlayAnimationClipServerRpc(AnimationStates.PlayerWest);
             }
             else {
-                anim.speed = 0;
+                PauseAnimationsServerRpc();
             }
         }
     }
 
-    private void PlayAnimationClip(string clipName) {
-        anim.speed = 1;
+    public void SetOverlay() {
+        if (overlaySet || string.IsNullOrEmpty(playerNetworkName.Value)) return;
+        var localPlayerOverlay = gameObject.GetComponentInChildren<TMP_Text>();
+        localPlayerOverlay.text = $"{playerNetworkName.Value}";
+        overlaySet = true;
+    }
+
+    [ServerRpc]
+    private void PauseAnimationsServerRpc() {
+        UpdatePlayerStateServerRpc(PlayerState.Idle);
+    }
+
+    [ServerRpc]
+    private void PlayAnimationClipServerRpc(string clipName) {
         anim.Play(clipName);
+        UpdatePlayerStateServerRpc(PlayerState.Walk);
+    }
+
+    [ServerRpc]
+    private void UpdatePlayerStateServerRpc(PlayerState state) {
+        networkPlayerState.Value = state;
     }
 }

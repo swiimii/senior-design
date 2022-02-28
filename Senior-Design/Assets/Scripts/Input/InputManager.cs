@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class InputManager : NetworkSingleton<InputManager>
 {
     [SerializeField] private InputProvider inputProvider;
+    public InputProvider InputProvider => inputProvider;
     private void Awake() {
         inputProvider.EnableInput();
     }
