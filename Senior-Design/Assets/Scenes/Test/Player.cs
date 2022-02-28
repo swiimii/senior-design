@@ -49,7 +49,7 @@ public class Player : NetworkBehaviour {
         }
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         SetOverlay();
         
         if (ClientAndOwner) {
