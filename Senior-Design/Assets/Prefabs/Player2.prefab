@@ -12,11 +12,13 @@ GameObject:
   - component: {fileID: 6975347503534472697}
   - component: {fileID: 6975347503534472198}
   - component: {fileID: 6975347503534472699}
+  - component: {fileID: 442858781191836676}
   - component: {fileID: 6975347503534472197}
   - component: {fileID: 6975347503534472196}
   - component: {fileID: -7816674506211516659}
   - component: {fileID: 5753109731737638786}
   - component: {fileID: -2789118273335975645}
+  - component: {fileID: -1618915946691875252}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Untagged
@@ -136,6 +138,25 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!95 &442858781191836676
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6975347503534472696}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3b7dba10e4787e44d9373fcaa6600285, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &6975347503534472197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,43 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputProvider: {fileID: 11400000, guid: 06d471742828fa84ab6d62b1751c6d4e, type: 2}
-  nSprites:
-  - {fileID: 4814271557941635497, guid: 7c39e9c7af892a6498a3c956be0fe71b, type: 3}
-  - {fileID: -5982911719067217146, guid: 7c39e9c7af892a6498a3c956be0fe71b, type: 3}
-  - {fileID: 7712483248598855895, guid: 7c39e9c7af892a6498a3c956be0fe71b, type: 3}
-  - {fileID: 1088199148439850142, guid: 7c39e9c7af892a6498a3c956be0fe71b, type: 3}
-  - {fileID: 7061125937849366320, guid: 7c39e9c7af892a6498a3c956be0fe71b, type: 3}
-  - {fileID: -4690964213907936986, guid: 7c39e9c7af892a6498a3c956be0fe71b, type: 3}
-  neSprites:
-  - {fileID: -206670225839568205, guid: 875651cd4cb274341b083fa383d88940, type: 3}
-  - {fileID: -5055614613573894606, guid: 875651cd4cb274341b083fa383d88940, type: 3}
-  - {fileID: 517554339549130270, guid: 875651cd4cb274341b083fa383d88940, type: 3}
-  - {fileID: -9089914714913352255, guid: 875651cd4cb274341b083fa383d88940, type: 3}
-  - {fileID: -3366985723696906904, guid: 875651cd4cb274341b083fa383d88940, type: 3}
-  - {fileID: 605332504175895770, guid: 875651cd4cb274341b083fa383d88940, type: 3}
-  eSprites:
-  - {fileID: -2097619832946416524, guid: 429afd5196cc1b442a24f2a4e56d8080, type: 3}
-  - {fileID: -1348034154024710663, guid: 429afd5196cc1b442a24f2a4e56d8080, type: 3}
-  - {fileID: 6668352289446723294, guid: 429afd5196cc1b442a24f2a4e56d8080, type: 3}
-  - {fileID: 94462882144034518, guid: 429afd5196cc1b442a24f2a4e56d8080, type: 3}
-  - {fileID: -3523300034984774013, guid: 429afd5196cc1b442a24f2a4e56d8080, type: 3}
-  - {fileID: 8910106256493828971, guid: 429afd5196cc1b442a24f2a4e56d8080, type: 3}
-  seSprites:
-  - {fileID: -8959435104959665722, guid: 7efe0739938cc914cab2000f10aad5e2, type: 3}
-  - {fileID: -4030386094175793843, guid: 7efe0739938cc914cab2000f10aad5e2, type: 3}
-  - {fileID: -1364405845133352172, guid: 7efe0739938cc914cab2000f10aad5e2, type: 3}
-  - {fileID: 1206067475154764738, guid: 7efe0739938cc914cab2000f10aad5e2, type: 3}
-  - {fileID: -5496230616154038744, guid: 7efe0739938cc914cab2000f10aad5e2, type: 3}
-  - {fileID: -7134833892972899455, guid: 7efe0739938cc914cab2000f10aad5e2, type: 3}
-  sSprites:
-  - {fileID: 2324236343598682440, guid: e8f3fa41b8e567f45ad69129b3926bc4, type: 3}
-  - {fileID: -4522642816008684399, guid: e8f3fa41b8e567f45ad69129b3926bc4, type: 3}
-  - {fileID: 7292855839450040615, guid: e8f3fa41b8e567f45ad69129b3926bc4, type: 3}
-  - {fileID: -3702086378366479978, guid: e8f3fa41b8e567f45ad69129b3926bc4, type: 3}
-  - {fileID: 1875398570215665590, guid: e8f3fa41b8e567f45ad69129b3926bc4, type: 3}
-  - {fileID: 6472311087013327458, guid: e8f3fa41b8e567f45ad69129b3926bc4, type: 3}
   walkSpeed: 7
-  frameRate: 8
 --- !u!114 &-7816674506211516659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,3 +242,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1618915946691875252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6975347503534472696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 442858781191836676}
+  m_ParameterSendBits: 0
+  m_SendRate: 0.1
