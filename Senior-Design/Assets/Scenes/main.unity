@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &81557378
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1555,6 +1555,10 @@ PrefabInstance:
     - target: {fileID: 8560302526132857075, guid: 3f10b6d4a232c2c41a68527a05d8ae1e, type: 3}
       propertyPath: m_Name
       value: ChatUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560302526132857075, guid: 3f10b6d4a232c2c41a68527a05d8ae1e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8560302526132857079, guid: 3f10b6d4a232c2c41a68527a05d8ae1e, type: 3}
       propertyPath: m_Pivot.x
