@@ -14,6 +14,7 @@ public class PasswordNetworkManager : MonoBehaviour {
     [SerializeField] private GameObject passwordEntryUI;
     [SerializeField] private GameObject leaveButton;
 
+    private NetworkVariable<int> playersInGame = new NetworkVariable<int>();
 
     private void Awake() {
         //playerNameInputField.text = PlayerPrefs.GetString("PlayerName");
@@ -34,7 +35,7 @@ public class PasswordNetworkManager : MonoBehaviour {
     }
 
     private void Update() {
-        playersInGameText.text = $"Players in game: {PlayersManager.Instance.PlayersInGame}";
+        playersInGameText.text = $"Players in game: {playersInGame.Value}";
     }
 
     public void Host() {
@@ -70,13 +71,16 @@ public class PasswordNetworkManager : MonoBehaviour {
         if (clientId != NetworkManager.Singleton.LocalClientId) return;
         passwordEntryUI.SetActive(false);
         leaveButton.SetActive(true);
+        
+        playersInGame.Value++;
     }
 
     private void HandleClientDisconnect(ulong clientId) {
         if (clientId != NetworkManager.Singleton.LocalClientId) return;
         passwordEntryUI.SetActive(true);
         leaveButton.SetActive(false);
-        
+
+        playersInGame.Value--;
     }
 
     private void ApprovalCheck(byte[] connectionData, ulong clientId,

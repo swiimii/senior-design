@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
@@ -12,6 +13,11 @@ public class Player : NetworkBehaviour {
     private CollisionDetection cd;
     private Animator anim;
 
+    private NetworkVariable<PlayerData> playerName = new NetworkVariable<PlayerData>();
+    private string Name => playerName.Value;
+    private bool overlaySet;
+
+    [SerializeField] private TMP_Text playerNameText;
     [SerializeField] private float walkSpeed = 7f;
 
     private void Awake() {
@@ -20,7 +26,13 @@ public class Player : NetworkBehaviour {
         anim = GetComponent<Animator>();
     }
 
+    public override void OnNetworkSpawn() {
+        playerName.Value = new PlayerData("Raja", NetworkManager.Singleton.LocalClientId);
+    }
+
     private void FixedUpdate() {
+        playerNameText.text = Name;
+
         HandleMovement();
         HandleAnimation();
         cd.ActivateTopDownCollision(inputState.movementDirection);
