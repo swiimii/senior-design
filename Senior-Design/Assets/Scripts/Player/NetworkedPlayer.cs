@@ -12,6 +12,11 @@ public class NetworkedPlayer : NetworkBehaviour
         if (!IsLocalPlayer)
         {
             pc.enabled = false;
+            GetComponentInChildren<Camera>().gameObject.SetActive(false);
+        }
+        else
+        {
+            // IsLocalPlayer
         }
     }
 }
