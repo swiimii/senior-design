@@ -368,7 +368,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6975347503534472696}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54c9647dc784a46bca664910f182491e, type: 3}
+  m_Script: {fileID: 11500000, guid: f0803af3cf4e27e438c3fb0e61905d90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SyncPositionX: 1
@@ -398,7 +398,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68a3d9c02dab4013bc51e3ab0f59382e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputProvider: {fileID: 11400000, guid: 06d471742828fa84ab6d62b1751c6d4e, type: 2}
   walkSpeed: 7
   networkPlayerState:
     m_InternalValue: 0
