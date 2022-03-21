@@ -97,13 +97,14 @@ public class MPLobby : NetworkBehaviour
         }
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void StartServerRpc()
     {
         foreach (PlayerData p in players)
         {
             var obj = Instantiate(playerPrefab);
             obj.GetComponent<NetworkObject>().SpawnAsPlayerObject(p.ClientId);
+            obj.GetComponent<NetworkObject>().ChangeOwnership(p.ClientId);
             print("Spawning object for " + p.Name + " of id " + p.ClientId);
         }
         NetworkManager.SceneManager.LoadScene("main-copy", LoadSceneMode.Single);
@@ -131,9 +132,16 @@ public class MPLobby : NetworkBehaviour
             NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnect;
         }
 
-        if (players != null)
+        if (players != null && NetworkManager.IsServer)
         {
-            players.Dispose();
+            try
+            {
+                players.Dispose();
+            }
+            catch (ObjectDisposedException)
+            {
+                Debug.LogWarning("Encountered error when disposing of player list.");
+            }
 
         }
         base.OnDestroy();
