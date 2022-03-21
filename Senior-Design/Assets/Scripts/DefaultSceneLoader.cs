@@ -10,16 +10,22 @@ public static class DefaultSceneLoader
         EditorApplication.playModeStateChanged += LoadDefaultScene;
     }
 
-    static void LoadDefaultScene(PlayModeStateChange state)
+    private static void LoadDefaultScene(PlayModeStateChange state)
     {
         if (state == PlayModeStateChange.ExitingEditMode)
         {
             EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
         }
-
+        
         if (state == PlayModeStateChange.EnteredPlayMode)
         {
-            EditorSceneManager.LoadScene(0);
+            if (EditorSceneManager.GetActiveScene().name == "1") {
+                EditorSceneManager.LoadScene("1");
+            }
+            else
+            {
+                EditorSceneManager.LoadScene(0);
+            }
         }
     }
 }

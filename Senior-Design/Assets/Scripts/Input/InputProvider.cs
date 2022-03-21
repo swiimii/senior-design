@@ -2,12 +2,7 @@
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
-public struct InputState {
-    public Vector2 movementDirection;
-}
-
 public interface IInputProvider {
-    public event UnityAction<float> onInteract; 
     public InputState GetState();
     void EnableInput();
     void DisableInput();
@@ -17,30 +12,40 @@ public interface IInputProvider {
 public class InputProvider : ScriptableObject, IInputProvider, PlayerInput.IGameplayActions {
     // Gameplay
 
-    public Vector2 movementDirection;
-    public event UnityAction<float> onInteract;
-    public event UnityAction<Vector2> MousePosEvent;
-
     private PlayerInput GameInput { get; set; }
+    public InputState inputState;
+    public event UnityAction<Vector2> MousePosEvent;
+    public event UnityAction InteractionCancelledEvent;
+    public event UnityAction InteractionStartedEvent;
+
 
     private void OnEnable()
     {
         GameInput ??= new PlayerInput();
         GameInput.Gameplay.SetCallbacks(this);
-        EnableInput();
     }
-
-    private void OnDisable() => DisableInput();
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        movementDirection = context.ReadValue<Vector2>();
+        inputState.movementDirection = context.ReadValue<Vector2>();
     }
 
-    public void OnInteract(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Performed) {
-            onInteract?.Invoke(context.ReadValue<float>());
+    public void OnInteract(InputAction.CallbackContext context) {
+        switch (context.phase) {
+            case InputActionPhase.Started:
+                inputState.interactClicked = true;
+                inputState.interactReleased = false;
+                inputState.isInteracting = true;
+                inputState.holdTimer = 0;
+                InteractionStartedEvent?.Invoke();
+                break;
+            case InputActionPhase.Canceled:
+                inputState.interactClicked = false;
+                inputState.interactReleased = true;
+                inputState.isInteracting = false;
+                inputState.holdTimer = 0;
+                InteractionCancelledEvent?.Invoke();
+                break;
         }
     }
 
@@ -50,21 +55,26 @@ public class InputProvider : ScriptableObject, IInputProvider, PlayerInput.IGame
     }
     
     public static implicit operator InputState(InputProvider provider) => provider.GetState();
+    public static implicit operator Vector2(InputProvider provider) => provider.GetState().movementDirection.normalized;
     
     public InputState GetState()
     {
         return new InputState {
-            movementDirection = movementDirection,
+            movementDirection = inputState.movementDirection,
+            interactClicked = inputState.interactClicked,
+            interactReleased = inputState.interactReleased,
+            isInteracting = inputState.isInteracting,
         };
     }
 
     public void EnableInput()
     {
         GameInput.Gameplay.Enable();
+        Helper.CustomLog("Gameplay Input Enabled", LogColor.White);
     }
-
     public void DisableInput()
     {
         GameInput.Gameplay.Disable();
+        Helper.CustomLog("Gameplay Input Disabled", LogColor.White);
     }
 }
