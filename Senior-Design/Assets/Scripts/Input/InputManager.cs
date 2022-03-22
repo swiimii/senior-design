@@ -7,7 +7,7 @@ public class InputManager : NetworkSingleton<InputManager>
 {
     [SerializeField] private InputProvider inputProvider;
     public InputProvider InputProvider => inputProvider;
-    private void Awake() {
+    private void Start() {
         inputProvider.EnableInput();
     }
 
