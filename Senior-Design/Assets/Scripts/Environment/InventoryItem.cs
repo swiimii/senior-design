@@ -9,7 +9,7 @@ public enum ItemType
     FireExtinguisher = 0,
     FuelTank = 1,
     BlueID = 2,
-    YellowID = 3,
+    OrangeID = 3,
 }
 
 public class InventoryItem : MonoBehaviour

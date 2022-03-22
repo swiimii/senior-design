@@ -328,15 +328,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equippedItem:
     m_InternalValue: 0
-  isUsingItem:
-    m_InternalValue: 0
   itemDisplayLocation: {fileID: 6534640203272754986}
   itemDisplayOffset: 1
   possibleSprites:
   - {fileID: 21300000, guid: 70f930a3af30dc04bb3672483501a441, type: 3}
   - {fileID: 21300000, guid: 15c644bcaf93d274685ca63dec2d6529, type: 3}
-  - {fileID: 21300000, guid: c7edd2893e89ef7459ac6a0e7b485046, type: 3}
-  - {fileID: 21300000, guid: c7edd2893e89ef7459ac6a0e7b485046, type: 3}
+  - {fileID: 21300000, guid: 97a74457817061e4388e23587ee233a4, type: 3}
+  - {fileID: 21300000, guid: ff257ee091a899242a3190d1bb3b7a79, type: 3}
 --- !u!1 &2212328607312137432
 GameObject:
   m_ObjectHideFlags: 0
