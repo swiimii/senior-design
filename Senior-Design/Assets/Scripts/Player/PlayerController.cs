@@ -16,11 +16,12 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector] public new BoxCollider2D collider;
 
     [SerializeField] private InputProvider provider;
-    // [SerializeField] private Reanimator reanimator;
     [SerializeField] private CollisionDetection collisionDetection;
     [SerializeField] private InteractionLogic interactionLogic;
     private InputState inputState => provider;
     private Vector2 MovementDirection => inputState.movementDirection;
+
+    public Vector2 GetMovementDirection() => MovementDirection;
 
     [SerializeField] private float walkSpeed = 7;
 
@@ -72,4 +73,5 @@ public class PlayerController : MonoBehaviour {
 
         collisionDetection.rigidbody2D.AddForce(velocityChange, ForceMode2D.Impulse);
     }
+
 }
