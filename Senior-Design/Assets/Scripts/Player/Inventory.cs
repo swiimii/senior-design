@@ -41,7 +41,12 @@ public class Inventory : NetworkBehaviour
             var keyboard = Keyboard.current;
             if (keyboard.fKey.wasPressedThisFrame)
             {
+                var useDirection = (itemDisplayLocation.transform.position - transform.position).normalized;
                 UseItemServerRpc();
+                if (TryInteract(useDirection, out var interactable))
+                {
+                    interactable.DoInteract(equippedItem.Value);
+                }
             }
             if (keyboard.fKey.wasReleasedThisFrame)
             {
@@ -93,5 +98,21 @@ public class Inventory : NetworkBehaviour
     {
         var sr = itemDisplayLocation.GetComponent<SpriteRenderer>();
         sr.enabled = false;
+    }
+
+    public bool TryInteract(Vector2 direction, out NetworkInteractable interactable)
+    {
+        var distance = 2f;
+        var hit = Physics2D.Raycast(transform.position, direction, distance);
+        if (hit && hit.collider.gameObject && hit.collider.gameObject.TryGetComponent<NetworkInteractable>(out var hitComponent))
+        {
+            interactable = hitComponent;
+            return true;
+        }
+        else
+        {
+            interactable = null;
+            return false;
+        }
     }
 }
