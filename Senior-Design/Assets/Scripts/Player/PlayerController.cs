@@ -5,7 +5,7 @@ using Aarthificial.Reanimation;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerController : NetworkBehaviour {
+public class PlayerController : MonoBehaviour {
     private static class Drivers {
         public const string IsMoving = "isMoving";
         public const string IsMovingHorizontal = "isMovingHorizontal";
@@ -16,7 +16,7 @@ public class PlayerController : NetworkBehaviour {
     [HideInInspector] public new BoxCollider2D collider;
 
     [SerializeField] private InputProvider provider;
-    [SerializeField] private Reanimator reanimator;
+    // [SerializeField] private Reanimator reanimator;
     [SerializeField] private CollisionDetection collisionDetection;
     [SerializeField] private InteractionLogic interactionLogic;
     private InputState inputState => provider;
@@ -26,52 +26,29 @@ public class PlayerController : NetworkBehaviour {
 
     private void Awake() {
         collider = GetComponent<BoxCollider2D>();
-        reanimator = GetComponent<Reanimator>();
         collisionDetection = GetComponent<CollisionDetection>();
     }
 
     private void Start() {
-        switch (IsLocalPlayer) {
-            case false:
-                name = "ClonePlayer";
-                enabled = false;
-                reanimator.enabled = false;
-                break;
-            case true:
-                name = "MainPlayer";
-                break;
+        if(!GetComponent<NetworkObject>().IsLocalPlayer)
+        {
+            this.enabled = false;
+        }
+        else
+        {
+            provider.EnableInput();
         }
     }
 
-    public override void OnNetworkSpawn() {
-        base.OnNetworkSpawn();
-
-        provider.EnableInput();
-    }
-
-    public override void OnNetworkDespawn() {
-        base.OnNetworkDespawn();
-
-        provider.DisableInput();
-    }
-
     private void Update() {
-        UpdateReanimatorServerRpc();
+        UpdateAnimator();
     }
 
-    [ServerRpc]
-    private void UpdateReanimatorServerRpc() {
-        UpdateReanimatorClientRpc();
-    }
-
-    [ClientRpc]
-    private void UpdateReanimatorClientRpc() {
+    private void UpdateAnimator() {
         interactionLogic.UpdateInteractable(this, collider.bounds.center);
-
-        reanimator.Set(Drivers.IsMoving, MovementDirection != Vector2.zero);
-        reanimator.Set(Drivers.IsMovingHorizontal, MovementDirection.x != 0);
-        reanimator.Set(Drivers.IsMovingRight, MovementDirection.x > 0);
-        reanimator.Set(Drivers.IsMovingUp, MovementDirection.y > 0);
+        var anim = GetComponent<Animator>();
+        anim.SetFloat("HorizontalMovement", MovementDirection.x);
+        anim.SetFloat("VerticalMovement", MovementDirection.y);
     }
 
     private void FixedUpdate() {
