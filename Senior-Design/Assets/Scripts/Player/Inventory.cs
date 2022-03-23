@@ -11,11 +11,14 @@ public class Inventory : NetworkBehaviour
     public float itemDisplayOffset = 1f;
     public Dictionary<ItemType, Sprite> itemToSprite = new Dictionary<ItemType, Sprite>();
     public Sprite[] possibleSprites;
+    private InventoryUI inventoryUI;
 
     private void Start()
     {
         if (IsServer)
+        {
             equippedItem.Value = ItemType.None;
+        }
 
         for (int i = 0; i < possibleSprites.Length; i++)
         {
@@ -57,6 +60,7 @@ public class Inventory : NetworkBehaviour
 
     public void Equip(ItemType item)
     {
+        InventoryUI.singleton.SetDisplayItem(item);
         EquipServerRpc(item);
     }
 
