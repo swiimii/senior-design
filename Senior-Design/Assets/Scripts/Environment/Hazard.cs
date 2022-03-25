@@ -8,6 +8,13 @@ public class Hazard : NetworkBehaviour
     public string description = "Unnamed Hazard";
     public int damage = 1;
 
+
+    [ServerRpc(RequireOwnership = false)]
+    public void ExtinguishServerRpc()
+    {
+        Destroy(gameObject);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         print("Collision");

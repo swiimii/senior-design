@@ -11,7 +11,7 @@ public class Inventory : NetworkBehaviour
     public float itemDisplayOffset = 1f;
     public Dictionary<ItemType, Sprite> itemToSprite = new Dictionary<ItemType, Sprite>();
     public Sprite[] possibleSprites;
-    private InventoryUI inventoryUI;
+    public FireExtinguisher fireExtinguisher;
 
     private void Start()
     {
@@ -37,7 +37,7 @@ public class Inventory : NetworkBehaviour
 
         var sr = itemDisplayLocation.GetComponent<SpriteRenderer>();
         var pos = itemDisplayLocation.transform.localPosition;
-        sr.flipX = pos.x < 0;
+        sr.flipX = pos.x < 0 ? true : pos.x > 0 ? false : sr.flipX;
 
         if (IsLocalPlayer)
         {
@@ -50,10 +50,15 @@ public class Inventory : NetworkBehaviour
                 {
                     interactable.DoInteract(equippedItem.Value);
                 }
+                if (equippedItem.Value == ItemType.FireExtinguisher)
+                {
+                    fireExtinguisher.DoFireExtinguisher();
+                }
             }
             if (keyboard.fKey.wasReleasedThisFrame)
             {
                 StopUsingItemServerRpc();
+                fireExtinguisher.StopFireExtinguisher();
             }
         }
     }
