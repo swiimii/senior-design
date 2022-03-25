@@ -32,8 +32,12 @@ Our game will use a Client/Server network architecture, where the "Host" of the 
 
 ## [Test Plan](https://docs.google.com/document/d/1CYnIe1eDAmB6U3Dy9Jrl0_qELpOeVDoDvKhV4TYlWAQ/edit?userstoinvite=thundercuber3@gmail.com&actionButton=1)
 
+## [Poster](https://github.com/swiimii/senior-design/blob/main/Documents/Poster.pdf)
+
+## [Final Presentation](https://docs.google.com/presentation/d/1wa9jlACCGNpujthrB7rCzOPotCHcn_TzFkorUl0m_RQ/edit?usp=sharing)
+
 ## Budget 
-To date, our project has not had any expenses, however we've been discussing the use of senior design funds to afford a Steam Developer license, or art asset licences.
+Our project was created with zero budget.
 
 ## Appendix
  - [Google Drive folder](https://drive.google.com/drive/folders/1eCeh6q14ys2AvG4vdRlvScV9JNBE-aQN?usp=sharing) with various project documents (view-only)
