@@ -1,4 +1,4 @@
-name: Build For Webgl
+name: Build Project
 
 on:
   push:
@@ -56,7 +56,7 @@ jobs:
           name: StandaloneWindows64
           path: build
   
-  webgl-build:
+  linux-build:
     name: Create linux build
     runs-on: ubuntu-latest
     steps:
