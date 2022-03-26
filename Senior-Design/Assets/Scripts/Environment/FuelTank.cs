@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 public class FuelTank : NetworkInteractable
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public EscapePod escapePod;
+    public Sprite completedSprite;
 
-    // Update is called once per frame
-    void Update()
+    [ClientRpc]
+    protected override void OnInteractClientRpc()
     {
-        
+        GetComponent<SpriteRenderer>().sprite = completedSprite;
+        escapePod.enabled = true;
     }
 }

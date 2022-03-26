@@ -23,7 +23,7 @@ public class FireExtinguisher : NetworkBehaviour
         if (particleObject.activeInHierarchy)
         {
             var origin = transform.position;
-            var distance = 4f;
+            var distance = 4.5f;
             var hits = Physics2D.RaycastAll(origin, lastValidLookDirection, distance);
             Debug.DrawRay((Vector2)origin, lastValidLookDirection.normalized * distance);
             foreach (var hit in hits)
