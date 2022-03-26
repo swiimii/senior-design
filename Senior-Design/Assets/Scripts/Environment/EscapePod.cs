@@ -18,10 +18,10 @@ public class EscapePod : NetworkInteractable
         goButtonSprite.color = Color.red;
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership=false)]
     protected override void OnInteractServerRpc(ItemType item)
     {
-        if (!isCompleting)
+        if (enabled && !isCompleting)
         {
             isCompleting = true;
             print("Game Complete!");
@@ -30,7 +30,7 @@ public class EscapePod : NetworkInteractable
         
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     private void CompleteGameServerRpc()
     {
         NetworkManager.Singleton.SceneManager.LoadScene("SuccessScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
