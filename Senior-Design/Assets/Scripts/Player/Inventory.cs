@@ -76,7 +76,7 @@ public class Inventory : NetworkBehaviour
     }
 
     [ServerRpc]
-    public void UseItemServerRpc()
+    private void UseItemServerRpc()
     {
         UseItemClientRpc();
     }
@@ -97,13 +97,13 @@ public class Inventory : NetworkBehaviour
     }
 
     [ServerRpc]
-    public void StopUsingItemServerRpc()
+    private void StopUsingItemServerRpc()
     {
         StopUsingItemClientRpc();
     }
 
     [ClientRpc]
-    public void StopUsingItemClientRpc()
+    private void StopUsingItemClientRpc()
     {
         var sr = itemDisplayLocation.GetComponent<SpriteRenderer>();
         sr.enabled = false;

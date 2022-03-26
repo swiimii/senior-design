@@ -81,6 +81,7 @@ public class Health : NetworkBehaviour, IDamageable
         var spawnPoint = GameObject.FindGameObjectWithTag("Respawn").transform;
         transform.position = new Vector3(spawnPoint.position.x, spawnPoint.position.y, transform.position.z);
         GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        GetComponent<Inventory>().Equip(ItemType.None);
     }
     
     // server only

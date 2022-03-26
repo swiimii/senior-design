@@ -6766,7 +6766,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1296696765}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 42, y: 0, z: 0}
+  m_LocalPosition: {x: 42.18, y: 0.11, z: 0}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8593,13 +8593,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549795255}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.004200365, w: 0.9999912}
   m_LocalPosition: {x: 4.0029564, y: -1.4406013, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 228080546}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.481}
 --- !u!1001 &1554123696
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8759,6 +8759,8 @@ GameObject:
   - component: {fileID: 1601895509}
   - component: {fileID: 1601895508}
   - component: {fileID: 1601895510}
+  - component: {fileID: 1601895511}
+  - component: {fileID: 1601895512}
   m_Layer: 0
   m_Name: fuel-tank_1
   m_TagString: Untagged
@@ -8844,7 +8846,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.3449458}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -8855,8 +8857,39 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 4}
+  m_Size: {x: 3, y: 3.3101084}
   m_EdgeRadius: 0
+--- !u!114 &1601895511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601895507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75f55ef9bbf0a3243ba6ddbcbb2baf01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetItem: 1
+  escapePod: {fileID: 1981164505}
+  completedSprite: {fileID: 8314627499482465968, guid: 505361ec22a15504b937999177724af9, type: 3}
+--- !u!114 &1601895512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601895507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3553179587
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &1637626248
 GameObject:
   m_ObjectHideFlags: 0
@@ -36065,6 +36098,8 @@ GameObject:
   - component: {fileID: 1981164503}
   - component: {fileID: 1981164502}
   - component: {fileID: 1981164504}
+  - component: {fileID: 1981164505}
+  - component: {fileID: 1981164506}
   m_Layer: 0
   m_Name: Dashboard
   m_TagString: Untagged
@@ -36151,7 +36186,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.29836655, y: -0.00000011920929}
+  m_Offset: {x: 0.00021362305, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -36162,8 +36197,38 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5967331, y: 4.4177084}
+  m_Size: {x: 0.99957275, y: 4.4177084}
   m_EdgeRadius: 0
+--- !u!114 &1981164505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981164501}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cec00620bbd4f20479bee2c970633e40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetItem: -1
+  goButtonSprite: {fileID: 801600146}
+--- !u!114 &1981164506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981164501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2307864556
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &2003963437
 GameObject:
   m_ObjectHideFlags: 0

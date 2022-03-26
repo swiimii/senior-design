@@ -21,7 +21,7 @@ public class NetworkInteractable : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     protected virtual void OnInteractServerRpc(ItemType currentHeldItem)
     {
-        if (currentHeldItem == targetItem)
+        if (currentHeldItem == targetItem || targetItem == ItemType.None)
         {
             OnInteractClientRpc();
         }
