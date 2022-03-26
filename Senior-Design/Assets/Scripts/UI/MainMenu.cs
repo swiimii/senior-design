@@ -4,14 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UNET;
 
 public class MainMenu : MonoBehaviour
 {
-    public InputField nameInput;
+    public InputField nameInput, addressInput;
 
     private void Awake()
     {
         nameInput.text = PlayerPrefs.GetString("Name");
+        addressInput.text = PlayerPrefs.GetString("LastAddress");
     }
 
     public void StartGame()
@@ -30,11 +32,35 @@ public class MainMenu : MonoBehaviour
     public void JoinGame()
     {
         var inputtedName = nameInput.text;
-        if (!inputtedName.Equals(""))
+        var targetAddress = addressInput.text;
+        PlayerPrefs.SetString("Name", inputtedName);
+        PlayerPrefs.SetString("LastAddress", targetAddress);
+        PlayerPrefs.Save();
+
+        if (!inputtedName.Equals("") && !targetAddress.Equals(""))
         {
-            PlayerPrefs.SetString("Name", inputtedName);
-            PlayerPrefs.Save();
-            NetworkManager.Singleton.StartClient();
+            NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectAddress = targetAddress;
+            try
+            {
+                NetworkManager.Singleton.StartClient();
+                StartCoroutine(WaitForConnection());
+            }
+            catch
+            {
+                NetworkManager.Singleton.Shutdown();
+            }
+            
+        }
+    }
+
+    IEnumerator WaitForConnection()
+    {
+        // Time before running the coroutine logic.
+        yield return new WaitForSeconds(2);
+
+        if (NetworkManager.Singleton.IsConnectedClient == false)
+        {
+            NetworkManager.Singleton.Shutdown();
         }
     }
 

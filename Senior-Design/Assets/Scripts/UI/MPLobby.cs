@@ -132,7 +132,7 @@ public class MPLobby : NetworkBehaviour
             NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnect;
         }
 
-        if (players != null && NetworkManager.IsServer)
+        if (players != null && players.Count > 0 && (!NetworkManager.Singleton || NetworkManager.Singleton.IsServer ))
         {
             try
             {
