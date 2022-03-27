@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 9576b598b9023bc4e8e719d6581741e2
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Brainstorm
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 44bdf2da567fb7248a2397386b4defbf, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

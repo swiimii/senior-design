@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ using Unity.Netcode.Transports.UNET;
 
 public class MainMenu : MonoBehaviour
 {
-    public InputField nameInput, addressInput;
+    public TMP_InputField nameInput, addressInput;
 
     private void Awake()
     {
