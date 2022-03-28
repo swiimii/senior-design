@@ -59,9 +59,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: Brainstorm
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -827474495
   material: {fileID: 3813510983348215973}
-  materialHashCode: 0
+  materialHashCode: 37094209
   m_Version: 1.1.0
   m_SourceFontFileGUID: 44bdf2da567fb7248a2397386b4defbf
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 44bdf2da567fb7248a2397386b4defbf, type: 3}
@@ -2424,9 +2424,9 @@ MonoBehaviour:
     packingMode: 0
     atlasWidth: 512
     atlasHeight: 512
-    characterSetSelectionMode: 0
-    characterSequence: 32 - 126, 160, 8203, 8230, 9633
-    referencedFontAssetGUID: 
+    characterSetSelectionMode: 6
+    characterSequence: 20-7E,A0,2026
+    referencedFontAssetGUID: 264f186f7e905ac489e1a298d35619ca
     referencedTextAssetGUID: 
     fontStyle: 0
     fontStyleModifier: 0

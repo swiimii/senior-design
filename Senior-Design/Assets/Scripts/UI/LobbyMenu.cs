@@ -6,10 +6,9 @@ using Unity.Netcode;
 
 public class LobbyMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
     public GameObject startButton;
-    public GameObject mpLobbyPrefab;
-    public Text playersList;
+    // public GameObject mpLobbyPrefab;
+    // public Text playersList;
 
     void Start()
     {
