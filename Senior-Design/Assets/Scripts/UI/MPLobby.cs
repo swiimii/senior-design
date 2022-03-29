@@ -6,12 +6,13 @@ using Unity.Netcode;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using TMPro;
 
 public class MPLobby : NetworkBehaviour
 {
     // Dictionary<int, PlayerData> players;
     public NetworkList<PlayerData> players;
-    public Text playerListObject;
+    public TMP_Text playerListObject;
     public GameObject playerPrefab;
 
 
