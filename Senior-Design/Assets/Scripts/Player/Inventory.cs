@@ -42,7 +42,7 @@ public class Inventory : NetworkBehaviour
         if (IsLocalPlayer)
         {
             var keyboard = Keyboard.current;
-            if (keyboard.fKey.wasPressedThisFrame)
+            if (keyboard.fKey.wasPressedThisFrame || keyboard.spaceKey.wasPressedThisFrame)
             {
                 var useDirection = (itemDisplayLocation.transform.position - transform.position).normalized;
                 UseItemServerRpc();
@@ -55,7 +55,7 @@ public class Inventory : NetworkBehaviour
                     fireExtinguisher.DoFireExtinguisher();
                 }
             }
-            if (keyboard.fKey.wasReleasedThisFrame)
+            if (keyboard.fKey.wasReleasedThisFrame || keyboard.spaceKey.wasReleasedThisFrame)
             {
                 StopUsingItemServerRpc();
                 fireExtinguisher.StopFireExtinguisher();

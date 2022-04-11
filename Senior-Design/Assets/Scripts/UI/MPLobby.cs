@@ -11,7 +11,7 @@ using TMPro;
 public class MPLobby : NetworkBehaviour
 {
     // Dictionary<int, PlayerData> players;
-    public NetworkList<PlayerData> players;
+    public NetworkList<PlayerData> players = new NetworkList<PlayerData>();
     public TMP_Text playerListObject;
     public GameObject playerPrefab;
 
@@ -26,7 +26,6 @@ public class MPLobby : NetworkBehaviour
 
         if (IsServer)
         {
-            players = new NetworkList<PlayerData>();
             players.OnListChanged += UpdatePlayersList;
         }
 
