@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.aarthificial.reanimation": {
-      "version": "https://github.com/aarthificial/reanimation.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "228b69e45103b168bf198fbd9bd0c9669774406f"
-    },
     "com.unity.2d.animation": {
       "version": "5.0.4",
       "depth": 0,
@@ -89,7 +82,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.cinemachine": {
-      "version": "2.6.10",
+      "version": "2.6.11",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -205,8 +198,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
-      "version": "1.1.29",
-      "depth": 2,
+      "version": "1.1.31",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.ext.nunit": "1.0.6",
@@ -225,7 +218,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.4.6",
+      "version": "1.4.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -250,7 +243,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "bb3d5067e49e403d8b8ba15c036d313b4dd2c696"
+      "hash": "f45424822189ebd875d864a17d7f03b72eafbff7"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
