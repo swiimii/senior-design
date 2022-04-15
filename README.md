@@ -19,9 +19,7 @@ Our game uses a Client/Server network architecture, where the "Host" of the game
 
 ## [Test Plan & Results](https://docs.google.com/document/d/1CYnIe1eDAmB6U3Dy9Jrl0_qELpOeVDoDvKhV4TYlWAQ/edit?userstoinvite=thundercuber3@gmail.com&actionButton=1)
 
-## [Installation Guide](https://github.com/swiimii/senior-design/tree/main/Documents/User%20Guides/installation-guide.md)
-
-## [User Manual](https://github.com/swiimii/senior-design/tree/main/Documents/User%20Guides/user-manual.md)
+## [User Manual](https://github.com/swiimii/senior-design/tree/main/Documents/User%20Guides/user-manual.md) // [Installation Guide](https://github.com/swiimii/senior-design/tree/main/Documents/User%20Guides/installation-guide.md)
 
 ## [Spring Final Slideshow Presentation](https://docs.google.com/presentation/d/1wa9jlACCGNpujthrB7rCzOPotCHcn_TzFkorUl0m_RQ/edit?usp=sharing)
 
