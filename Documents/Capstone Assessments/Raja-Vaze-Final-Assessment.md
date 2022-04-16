@@ -1,0 +1,5 @@
+# Raja Vaze - Final Assessment
+
+Looking over the work that was done for this project over the past 8 months, I'm confident that I accomplished, learned and contributed a lot to the completion of this project. In the first half of the projects run, I worked mostly on player movement, animation and collision. I updated and improved upon code that I had written, and research that I had done previously in other co-op projects. In the final stretch, I implemented most of the QoE improvements to the UI, such as implementing a proper color scheme and fonts that fits the theme and look of the game. I also spent many hours looking into bug fixes involving synchronizing player animations and movement across the network.
+
+Despite some issues that arose with the MLAPI multiplayer library and some issues with scheduling and syncing up work that we had done, I believe we've ended up with a respectable game that anyone can play and enjoy, while also leaving lots of room to improve and expand upon in the future if desired.
