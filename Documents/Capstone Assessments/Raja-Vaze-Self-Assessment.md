@@ -1,0 +1,7 @@
+# Raja Vaze Self Assessment
+
+# Part A - Individual Assessment
+ - During the development of this project I learned a lot of new valuable skills and implemented various aspects of the game.
+ For my main personal contributions, during the initial development period, I implemented all the key elements of the player, such as movement, collisions and animations. During the development of this, I realized some faults in my code such as relating to player collision against walls. I learned a lot more about how collisions work within Unity and was able to learn to better optimize my code to be more modular. I also learned that my method of animation was not the most suitable for a multiplayer game, and so I had to go through a lot of bug fixing and trial-error with new methods of animations. I learned how different API's interact with the Unity code-base and had to learn to adapt the code to work with the various other tools being used.
+
+ Towards the near-end of the project, I spent a lot of time researching more detailed aspects of the MLAPI library. The game was having a lot of issues with multiple players not being able to see the same movement from the other players. Animations also were not synced across the network. With a lot of time and research, we were both able to resolve the issue. Finally I also implemented the UI design in a way that fit the theme of the game. The most challenging aspect of this was to decide on the theme, the fonts and the colors. 
